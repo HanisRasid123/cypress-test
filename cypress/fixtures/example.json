@@ -1,0 +1,12 @@
+{
+  "sysAdminPassword": "Demo@123456",
+  "sysAdminEmail": "development@healthrfid.com",
+  "body": "Fixtures are a great way to mock data for responses to routes",
+  "orgName": "TestOrg12345",
+  "jobTitle": "Tester",
+  "name": "Tester123",
+  "phoneNo": "123456789",
+  "contactEmail": "tester123@test.com",
+  "note": "This is a test.",
+  "host": "http://localhost:3000"
+}
