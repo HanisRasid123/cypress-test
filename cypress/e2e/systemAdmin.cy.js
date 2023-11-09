@@ -44,7 +44,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('userList', function() {
+  it('userList', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate to user list
@@ -92,6 +92,59 @@ describe('System Admin', () => {
     cy.get('.button > .fa').click();
     cy.get('.activate-deactivate-modal > .modal > .modal-card > .modal-card-foot > .button').click();
     cy.get('.activate-deactivate-modal').should('be.hidden');
+    cy.get('.status.active').colourCheck(23,190,187); //status colour
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('userRolePermissions', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate to userRolePermissions
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Settings"]').click();
+    cy.get('[data-name="Settings"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.menu-toggle').click();
+    cy.get('select').select('HSA');
+    cy.get('.configuration__list > :nth-child(1)').click();
+    cy.get('[style="height: auto;"] > :nth-child(2)').click();
+    cy.url().should('include','/system-admin/user/user-role-permissions');
+
+    //create user role
+    cy.get('.create-button-margin').click({force:true});
+    cy.get('.input').type(data.userRole);
+    cy.get('select').select('1');
+    cy.get(':nth-child(2) > .panel > .panel-block > .field > .control > .select > select').select('1');
+    cy.get(':nth-child(1) > .field > .control > .select > select').select('1');
+    cy.get('.is-1 > .create-button').click();
+    cy.get(':nth-child(6) > .column > :nth-child(2)').click();
+
+    //search user role and select
+    cy.get('.input').type(data.userRole);
+    cy.contains(data.userRole).should('be.visible');
+    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
+    
+    //edit user role
+    cy.get('[data-label="Edit User Role"] > .button > .fa').click();
+    cy.url().should('include', '/system-admin/user/user-role-process')
+    cy.get(':nth-child(1) > .panel > .panel-block > .field > .control > .select > select').select('2');
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get(':nth-child(2) > .panel > .panel-block > .field > .control > .select > select').select('1');
+    cy.get(':nth-child(1) > .field > .control > .select > select').select('12');
+    cy.get('.is-1 > .create-button').click({force:true});
+    cy.get(':nth-child(6) > .column > :nth-child(2)').click();
+    cy.url().should('include','/system-admin/user/user-role-permissions')
+
+    //search user role and select
+    cy.get('.input').type(data.userRole);
+    cy.contains(data.userRole).should('be.visible');
+    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
+
+    //deactivate user
+    cy.get('.activate-deactivate-admin > .control > .select > select').select('0');
+    cy.get('.with-form > .buttons > .is-dark > .button').click();
+    cy.get('.modal-card-foot > :nth-child(2)').click()
+    cy.get('.status.deactive').colourCheck(243, 146, 55);
     /* ==== End Cypress Studio ==== */
   });
 })

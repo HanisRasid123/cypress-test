@@ -26,8 +26,8 @@ Cypress.Commands.add('login', (email, password) => {
 //
 //
 // -- This is a child command --
-Cypress.Commands.add('activateColourCheck', { prevSubject: 'element'}, (subject, options) => {
-  cy.wrap(subject).should('have.css','border-color','rgb(23, 190, 187)');
+Cypress.Commands.add('colourCheck', { prevSubject: 'element'}, (subject, r, g, b) => {
+  cy.wrap(subject).should('have.css','border-color','rgb(' + r + ', ' + g + ', ' + b + ')');
 })
 //
 //

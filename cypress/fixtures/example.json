@@ -11,5 +11,6 @@
   "host": "http://localhost:3000",
   "userFName": "Hanis",
   "userLName": "Rasid",
-  "userEmail": "hanis.rasid@healthrfid.com"
+  "userEmail": "hanis.rasid@healthrfid.com",
+  "userRole": "TestUserRole"
 }
