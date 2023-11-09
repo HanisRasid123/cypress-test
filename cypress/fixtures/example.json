@@ -1,7 +1,8 @@
 {
   "sysAdminPassword": "Demo@123456",
   "sysAdminEmail": "development@healthrfid.com",
-  "body": "Fixtures are a great way to mock data for responses to routes",
+  "orgAdminEmail": "support@healthrfid.com",
+  "orgAdminPassword": "Demo@123456",
   "orgName": "TestOrg12345",
   "jobTitle": "Tester",
   "name": "Tester123",
@@ -12,5 +13,6 @@
   "userFName": "Hanis",
   "userLName": "Rasid",
   "userEmail": "hanis.rasid@healthrfid.com",
-  "userRole": "TestUserRole"
+  "userRole": "TestUserRole",
+  "userGroups": "TestUserGroup123"
 }

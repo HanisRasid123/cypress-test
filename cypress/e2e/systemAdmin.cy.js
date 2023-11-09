@@ -97,7 +97,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('userRolePermissions', function() {
+  it('userRolePermissions', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate to userRolePermissions
@@ -147,4 +147,56 @@ describe('System Admin', () => {
     cy.get('.status.deactive').colourCheck(243, 146, 55);
     /* ==== End Cypress Studio ==== */
   });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('userGroups', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle').click();
+    cy.get('[data-name="Settings"]').click();
+    cy.get('[data-name="Settings"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.menu-toggle').click();
+    cy.get('select').select('HSA');
+    cy.get('.configuration__list > :nth-child(1)').click();
+    cy.get('[style="height: auto;"] > :nth-child(3)').click();
+    cy.url().should('include','/system-admin/user/user-groups');
+
+    //create user group
+    cy.get('.create-button').click({force:true});
+    cy.url().should('include','/system-admin/user/user-group-process');
+    cy.get('.input').type(data.userGroups, {force:true});
+    cy.get('#checkAll').check({force: true});
+    cy.get('.has-text-center > .create-button').click();
+    cy.get('.has-text-right > :nth-child(2)').click();
+    cy.url().should('include','/system-admin/user/user-groups');
+
+
+    //search 
+    cy.get('.input').type(data.userGroups, {force:true});
+    // cy.get('.has-text-right > :nth-child(2)').click();
+    // cy.get('.input').type(data.userGroups, {force: true});
+    cy.get('tbody > tr > :nth-child(1) > .custom-checkbox > .checkmark').click({force: true});
+    //TODO: complete assertions for everthing below---------------------------------------------------------------
+    //edit
+    cy.get('[data-label="Edit User Group"] > .button > .fa').click();
+    cy.get(':nth-child(9) > [width="45"] > .custom-checkbox > .checkmark').click();
+    cy.get(':nth-child(4) > .has-text-center > .create-button').click();
+    cy.get('.has-text-right > :nth-child(2)').click();
+    cy.url().should('include', '/system-admin/user/user-groups')
+
+    //search
+    cy.get('.input').type(data.userGroups, {force: true});
+    cy.contains(data.userGroups).should('be.visible');
+    cy.get('tbody > tr > :nth-child(1) > .custom-checkbox > .checkmark').click();
+
+    //deactivate
+    cy.get('.activate-deactivate-admin > .control > .select > select').select('0');
+    cy.get('.with-form > .buttons > .is-dark > .button').click();
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get('.status.deactive').colourCheck(243, 146, 55);
+    /* ==== End Cypress Studio ==== */
+  });
+
+  
 })
