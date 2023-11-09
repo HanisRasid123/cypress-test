@@ -8,5 +8,8 @@
   "phoneNo": "123456789",
   "contactEmail": "tester123@test.com",
   "note": "This is a test.",
-  "host": "http://localhost:3000"
+  "host": "http://localhost:3000",
+  "userFName": "Hanis",
+  "userLName": "Rasid",
+  "userEmail": "hanis.rasid@healthrfid.com"
 }
