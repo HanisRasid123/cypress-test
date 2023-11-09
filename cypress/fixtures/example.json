@@ -14,5 +14,6 @@
   "userLName": "Rasid",
   "userEmail": "hanis.rasid@healthrfid.com",
   "userRole": "TestUserRole",
-  "userGroups": "TestUserGroup123"
+  "userGroups": "TestUserGroup123",
+  "locationGroup": "TestLocationGroup"
 }

@@ -149,7 +149,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('userGroups', function() {
+  it('userGroups', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -177,7 +177,7 @@ describe('System Admin', () => {
     // cy.get('.has-text-right > :nth-child(2)').click();
     // cy.get('.input').type(data.userGroups, {force: true});
     cy.get('tbody > tr > :nth-child(1) > .custom-checkbox > .checkmark').click({force: true});
-    //TODO: complete assertions for everthing below---------------------------------------------------------------
+
     //edit
     cy.get('[data-label="Edit User Group"] > .button > .fa').click();
     cy.get(':nth-child(9) > [width="45"] > .custom-checkbox > .checkmark').click();
@@ -198,5 +198,54 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   });
 
-  
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('locationGroups', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle').click();
+    cy.get('[data-name="Settings"]').click();
+    cy.get('[data-name="Settings"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.menu-toggle').click();
+    cy.get('select').select('HSA');
+    cy.get('.configuration__list > :nth-child(1)').click();
+    cy.get('[style="height: auto;"] > :nth-child(5)').click();
+    cy.url().should('include','/system-admin/user/location-groups')
+
+    //create location group
+    cy.get('.create-button').click();
+    cy.url().should('include','/system-admin/user/location-group-process')
+    cy.get('.input').type('TestLocationGroup');
+    cy.get('select').select('1');
+    cy.get(':nth-child(2) > .field > .control > .select > select').select('1');
+    cy.get('.panel-block > .columns > .has-text-right > .create-button').click();
+    cy.get(':nth-child(5) > .column > :nth-child(2)').click();
+    cy.url().should('include','/system-admin/user/location-groups')
+
+    //search 
+    cy.get('.input').type('TestLocationGroup');
+    cy.contains(data.locationGroup)
+    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
+
+    //edit
+    cy.get('[data-label="Edit Location Group"] > .button > .fa').click();
+    cy.url().should('include', '/system-admin/user/location-group-process')
+    cy.get(':nth-child(2) > .field > .control > .select > select').select('2');
+    cy.get('.panel-block > .columns > .has-text-right > .create-button').click();
+    cy.get(':nth-child(5) > .column > :nth-child(2)').click();
+    cy.url().should('include','/system-admin/user/location-groups')
+
+    //search
+    cy.get('.input').type('TestLocationGroup');
+    cy.contains(data.locationGroup)
+    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
+
+    //deactivate
+    cy.get('.activate-deactivate-admin > .control > .select > select').select('0');
+    cy.get('.with-form > .buttons > .is-dark > .button > .fa').click();
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get('.status.deactive').colourCheck(243, 146, 55);
+    /* ==== End Cypress Studio ==== */
+  });
 })
