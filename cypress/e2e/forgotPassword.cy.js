@@ -8,10 +8,10 @@ describe('Forgot password', ()=>{
     cy.url().should('include', '/forgot-password') //assert
 
     //input email
-    cy.get("input[type='email']").as('email-field').type(data.email);
+    cy.get("input[type='email']").as('email-field').type(data.sysAdminEmail);
 
     //assert
-    cy.get('@email-field').should('have.value', data.email)
+    cy.get('@email-field').should('have.value', data.sysAdminEmail)
 
     cy.get('.create-button').click();
     cy.get('.alert-link').click();
