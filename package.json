@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "cypress open"
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
   },
   "author": "Hanis Rasid",
   "license": "ISC",
