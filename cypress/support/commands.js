@@ -26,7 +26,9 @@ Cypress.Commands.add('login', (email, password) => {
 //
 //
 // -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
+Cypress.Commands.add('activateColourCheck', { prevSubject: 'element'}, (subject, options) => {
+  cy.wrap(subject).should('have.css','border-color','rgb(23, 190, 187)');
+})
 //
 //
 // -- This is a dual command --
