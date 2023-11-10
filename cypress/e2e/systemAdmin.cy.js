@@ -1,3 +1,4 @@
+import moment from 'moment/moment';
 import data from '../fixtures/example.json'
 
 beforeEach(()=> {
@@ -200,7 +201,7 @@ describe('System Admin', () => {
 
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('locationGroups', function() {
+  it('locationGroups', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -246,6 +247,38 @@ describe('System Admin', () => {
     cy.get('.with-form > .buttons > .is-dark > .button > .fa').click();
     cy.get('.modal-card-foot > :nth-child(2)').click();
     cy.get('.status.deactive').colourCheck(243, 146, 55);
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('deviceRegistrationRecord', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Devices"]').click();
+    cy.get('[data-name="Devices Registration Record"]').click();
+    cy.get('.menu-toggle > .fa').click();
+
+    //filter by org and location
+    cy.contains('Organisations').siblings().children().children().as('orgSelect');
+    cy.get('@orgSelect').select('8',{force:true});
+    cy.contains('Locations').siblings().children().children().as('locSelect');
+    cy.get('@locSelect').select('38',{force:true});
+
+    //assert data is not empty and date validation for registration
+    let rowData = [];
+    let count = 0;
+    cy.get('td').each(item =>{
+      cy.get(item).should('not.be.empty')
+      rowData.push(item.text());
+      count++
+    })
+    .then(() => {
+      let check = moment(rowData[7], "DD/MM/YYYY HH:mm:ss", true).isValid();
+      cy.wrap(check).should('eq', true)
+    })
+
     /* ==== End Cypress Studio ==== */
   });
 })
