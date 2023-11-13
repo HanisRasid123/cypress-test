@@ -420,7 +420,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('locationConfig', function() {
+  it('locationConfig', function() {
     /* ==== Generated with Cypress Studio ==== */
     //navigate
     cy.get('.menu-toggle > .fa').click();
@@ -436,6 +436,46 @@ describe('System Admin', () => {
     cy.get(':nth-child(1) > .custom-checkbox > .checkmark').click();
     cy.get('.button').click();
     cy.get('.notification').should('be.visible')
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('locationSettings', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigation
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Configuration"]').click();
+    cy.get('[data-name="Configuration"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.menu-toggle').click();
+    cy.get('.configuration__list > :nth-child(3)').click();
+    cy.get('select').select('HSA');
+    cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(3)').click();
+    cy.url().should('include','/system-admin/locations/location-settings')
+
+    //create location setting
+    cy.wait(2000)
+    cy.get('.create-button').click({force:true}).then(()=>{
+      cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(1) > .control > .input').type(data.locationSetting);
+    })
+    cy.get(':nth-child(3) > .control > .select > #select_status').select('4');
+    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(1) > .b-checkbox > .control-label').click();
+    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(1) > .b-checkbox > input').check({force:true});
+    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(14) > .b-checkbox > .control-label').click();
+    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(14) > .b-checkbox > input').check({force:true});
+    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(12) > .b-checkbox > .check').click();
+    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(12) > .b-checkbox > input').check({force:true});
+    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-foot > .button').click({force:true});
+
+
+    //search
+    cy.get(':nth-child(3) > .field > .control > .input').type(data.locationSetting);
+    cy.contains(data.locationSetting).should('be.visible')
+
+    //deactivate
+    cy.get('[title="Activate/Deactivate Location"] > .fa').click();
+    cy.get('.modal-card > .modal-card-foot > .button').click();
+    cy.get('.status.deactive').colourCheck(243, 146, 55);
     /* ==== End Cypress Studio ==== */
   });
 })

@@ -25,5 +25,6 @@
     "componentCat": "Red Cells"
   },
   "bloodDataFilename": "Blood_Data_List_ORG8_",
-  "fpTrackingId": "FPAAAY6633"
+  "fpTrackingId": "FPAAAY6633",
+  "locationSetting":"TestLocationSetting"
 }
