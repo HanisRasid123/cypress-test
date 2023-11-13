@@ -373,7 +373,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('addPatient(unXmatched/emergency)', function() {
+  it('addPatient(unXmatched/emergency)', function() {
     /* ==== Generated with Cypress Studio ==== */
     //navigation
     cy.get('.menu-toggle > .fa').click();
@@ -389,6 +389,33 @@ describe('System Admin', () => {
     cy.get(':nth-child(9) > .button').click();
     cy.get('.modal-card-foot > :nth-child(2)').click();
     cy.get('.notification').should('be.visible')
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('fractionatedProductStatus', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    //navigate
+    cy.get('[data-name="Configuration"]').click();
+    cy.get('.minimize > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.configuration__list > :nth-child(1)').click();
+    cy.get('select').select('HSA');
+    cy.get('.configuration__list > :nth-child(13)').click();
+
+    //search
+    cy.get('.input').type(data.fpTrackingId, {force:true});
+    cy.contains(data.fpTrackingId).should('be.visible')
+
+    //download
+    var beforeDownload = 0;
+    cy.task('downloads', 'cypress/downloads').then(before => {
+      beforeDownload = before
+      cy.get('.create-button').click({force:true});
+    })
+    cy.wait(3000)
+    cy.task('downloads', 'cypress/downloads').then(after => {
+      expect(after.length).to.be.eq(beforeDownload.length +1)  
+    })
     /* ==== End Cypress Studio ==== */
   });
 })

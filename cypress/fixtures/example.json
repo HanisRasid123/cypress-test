@@ -24,5 +24,6 @@
     "componentName": "Red cells Leucocyte depleted washed in SAG-M",
     "componentCat": "Red Cells"
   },
-  "bloodDataFilename": "Blood_Data_List_ORG8_"
+  "bloodDataFilename": "Blood_Data_List_ORG8_",
+  "fpTrackingId": "FPAAAY6633"
 }
