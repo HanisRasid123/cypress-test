@@ -393,7 +393,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('fractionatedProductStatus', function() {
+  it('fractionatedProductStatus', function() {
     /* ==== Generated with Cypress Studio ==== */
     //navigate
     cy.get('[data-name="Configuration"]').click();
@@ -416,6 +416,26 @@ describe('System Admin', () => {
     cy.task('downloads', 'cypress/downloads').then(after => {
       expect(after.length).to.be.eq(beforeDownload.length +1)  
     })
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('locationConfig', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    //navigate
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Configuration"]').click();
+    cy.get('[data-name="Configuration"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('.configuration__list > :nth-child(3)').click();
+    cy.get('select').select('HSA');
+    cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(1)').click();
+    cy.url().should('include','/system-admin/locations/location-configuration')
+
+    //edit location config
+    cy.get(':nth-child(1) > .custom-checkbox > .checkmark').click();
+    cy.get('.button').click();
+    cy.get('.notification').should('be.visible')
     /* ==== End Cypress Studio ==== */
   });
 })
