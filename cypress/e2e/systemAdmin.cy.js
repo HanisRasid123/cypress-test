@@ -326,7 +326,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('bloodData', function() {
+  it('bloodData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -369,6 +369,26 @@ describe('System Admin', () => {
     let filename = data.bloodDataFilename + fileTS + ".0.xlsx";
     //search file name and assert include compCat and not include !compCat
     cy.readFile("cypress/downloads/" + filename).should('contain', data.bloodComponent.componentCat).and('not.contain', 'Platelets').and('not.contain',"Plasma")
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('addPatient(unXmatched/emergency)', function() {
+    /* ==== Generated with Cypress Studio ==== */
+    //navigation
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Configuration"]').click();
+    cy.get('[data-name="Configuration"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('.configuration__list > :nth-child(1)').click();
+    cy.get('select').select('HSA');
+    cy.get('.configuration__list > :nth-child(9)').click();
+
+    //modify patient
+    cy.get(':nth-child(2) > .action-buttons > .is-dark > button > .fa').click();
+    cy.get(':nth-child(9) > .button').click();
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get('.notification').should('be.visible')
     /* ==== End Cypress Studio ==== */
   });
 })
