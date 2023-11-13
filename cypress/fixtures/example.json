@@ -18,5 +18,11 @@
   "locationGroup": "TestLocationGroup",
   "patientfName": "Test123",
   "patientlName": "Test321",
-  "patientMRN": "123456789"
+  "patientMRN": "123456789",
+  "bloodComponent": {
+    "donationId": "0000001",
+    "componentName": "Red cells Leucocyte depleted washed in SAG-M",
+    "componentCat": "Red Cells"
+  },
+  "bloodDataFilename": "Blood_Data_List_ORG8_"
 }

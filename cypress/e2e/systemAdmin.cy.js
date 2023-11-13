@@ -283,7 +283,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('patientData', function() {
+  it('patientData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -322,6 +322,53 @@ describe('System Admin', () => {
     cy.contains(data.patientfName, {matchCase: false}).should('be.visible')
     cy.contains(data.patientlName, {matchCase: false}).should('be.visible')
     cy.contains(data.patientMRN, {matchCase: false}).should('be.visible')
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('bloodData', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle').click();
+    cy.get('[data-name="Configuration"]').click();
+    cy.get('[data-name="Configuration"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.menu-toggle').click();
+    cy.get('.configuration__list > :nth-child(1)').click();
+    cy.get('select').select('HSA');
+    cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(5)').click();
+
+    //download and verify
+    var beforeDownload = 0;
+    cy.task('downloads', 'cypress/downloads').then(before => {
+      beforeDownload = before
+      cy.get('.create-button-margin').click({force:true});
+    })
+    cy.wait(3000)
+    cy.task('downloads', 'cypress/downloads').then(after => {
+      expect(after.length).to.be.eq(beforeDownload.length +1)  
+    })
+
+    //test search function
+    cy.get('.input').type(data.bloodComponent.donationId, {force:true});
+    cy.contains(data.bloodComponent.donationId).should('be.visible')
+    cy.get('.input').clear();
+    cy.get('.input').type(data.bloodComponent.componentName, {force:true});
+    cy.contains(data.bloodComponent.componentName).should('be.visible')
+    cy.get('.input').clear();
+    cy.get('.input').type(data.bloodComponent.componentCat, {force:true});
+    cy.contains(data.bloodComponent.componentCat)
+    cy.get('.input').clear();
+    cy.get('#select_status').select("1",{force:true})
+    cy.contains(data.bloodComponent.componentCat).should('be.visible')
+    cy.get('.create-button-margin').click({force:true});
+    //get current date
+    const now = new Date();
+    let fileTS = moment(now).format("DDMMYYYY_HHmm")
+    //parse date for file name
+    let filename = data.bloodDataFilename + fileTS + ".0.xlsx";
+    //search file name and assert include compCat and not include !compCat
+    cy.readFile("cypress/downloads/" + filename).should('contain', data.bloodComponent.componentCat).and('not.contain', 'Platelets').and('not.contain',"Plasma")
     /* ==== End Cypress Studio ==== */
   });
 })
