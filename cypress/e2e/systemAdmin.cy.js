@@ -251,7 +251,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('deviceRegistrationRecord', function() {
+  it('deviceRegistrationRecord', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -279,6 +279,49 @@ describe('System Admin', () => {
       cy.wrap(check).should('eq', true)
     })
 
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('patientData', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Configuration"]').click();
+    cy.get('[data-name="Configuration"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('.configuration__list > :nth-child(1)').click();
+    cy.get('select').select('HSA');
+    cy.intercept('http://localhost:8080/api/organisation').as('wait')
+    cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(1)').click();
+    cy.wait('@wait')
+    cy.url().should('include',"/system-product/patient-data")
+    
+    //download file and verify
+    var beforeDownload = 0;
+    cy.task('downloads', 'cypress/downloads').then(before => {
+      beforeDownload = before
+      cy.get(':nth-child(2) > .create-button-margin').click({force:true})
+    })
+    cy.wait(3000)
+    cy.task('downloads', 'cypress/downloads').then(after => {
+      expect(after.length).to.be.eq(beforeDownload.length +1)  
+    })
+
+    //add patient
+    cy.get(':nth-child(1) > .create-button-margin').click({force:true});
+    cy.get('.modal-card-body > :nth-child(1) > :nth-child(1) > :nth-child(1) > .input').type(data.patientfName);
+    cy.get(':nth-child(3) > .input').type(data.patientlName);
+    cy.get(':nth-child(4) > .field > .control > .select > select').select('0');
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get(':nth-child(1) > :nth-child(1) > .field > .control > .select > select').select('91');
+    cy.get(':nth-child(2) > .field > .input').type(data.patientMRN);
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get(':nth-child(6) > .control > .input').type(data.patientfName + " " + data.patientlName);
+    cy.contains(data.patientfName, {matchCase: false}).should('be.visible')
+    cy.contains(data.patientlName, {matchCase: false}).should('be.visible')
+    cy.contains(data.patientMRN, {matchCase: false}).should('be.visible')
     /* ==== End Cypress Studio ==== */
   });
 })
