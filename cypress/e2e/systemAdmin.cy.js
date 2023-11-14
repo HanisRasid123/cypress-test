@@ -440,7 +440,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('locationSettings', function() {
+  it('locationSettings', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigation
@@ -476,6 +476,102 @@ describe('System Admin', () => {
     cy.get('[title="Activate/Deactivate Location"] > .fa').click();
     cy.get('.modal-card > .modal-card-foot > .button').click();
     cy.get('.status.deactive').colourCheck(243, 146, 55);
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('clinicalAreaSettings', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Configuration"]').click();
+    cy.get('[data-name="Configuration"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.configuration__list > :nth-child(3)').click();
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('select').select('HSA');
+    cy.get('.configuration__list > :nth-child(11)').click();
+    cy.url().should('include','system-admin/feature/clinical-area-setting')
+
+    //create setting
+    cy.get('.create-button').click();
+    cy.get('.modal-card-body > :nth-child(1) > .control > .input').type(data.clinicalAreaSetting);
+    cy.get(':nth-child(2) > .is-1 > .b-checkbox > .check').click();
+    cy.get('form > .modal-card-foot > .button').click();
+    cy.get('.notification > :nth-child(4)').should('be.visible')
+
+    //edit setting
+    cy.get('.input[placeholder="Search"').should('be.visible').type(data.clinicalAreaSetting);
+    cy.get('[title="Edit Settings"] > .fa').click();
+    cy.get(':nth-child(4) > .is-1 > .b-checkbox > .check').click();
+    cy.get('form > .modal-card-foot > .button').click();
+    cy.get('.notification').should('be.visible')
+
+    //deactivate setting
+    cy.get('[title="Activate/Deactivate Setting"] > .fa').click();
+    cy.get('.modal-card-foot > .button').click();
+    cy.get('.status.deactive').colourCheck(243, 146, 55);
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('slaConfig', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Configuration"]').click();
+    cy.get('[data-name="Configuration"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.configuration__list > :nth-child(3)').click();
+    cy.get('select').select('HSA', {force:true});
+    cy.get('.configuration__list > :nth-child(9)').click();
+    cy.get('.menu-toggle').click();
+    cy.url().should('include','/system-admin/sla-config/sla-configuration')
+
+    //create sla config
+    cy.get('.is-desktop > :nth-child(1) > .create-button').click({force:true});
+    cy.get('.panel > :nth-child(2) > .field > .control > .input').type(data.slaConfig.name);
+    cy.get('#2 ').type(data.slaConfig.time);
+    cy.get('#3 ').type(data.slaConfig.time);
+    cy.get('select').select('2');
+    cy.get('.panel-block > .columns > .has-text-right > .create-button').click();
+    cy.get('#feature0').click();
+    cy.get('#33').type(data.slaConfig.time);
+    cy.get('#34').type(data.slaConfig.time);
+    cy.get('#35').type(data.slaConfig.time);
+    cy.get('#41').type(data.slaConfig.time);
+    cy.get('#42').type(data.slaConfig.time);
+    cy.get('#43').type(data.slaConfig.time);
+    cy.get(':nth-child(5) > .column > :nth-child(2)').click();
+    cy.get('.notification').should('be.visible')
+
+    //search
+    cy.get('.input[placeholder="Search"]').type(data.slaConfig.name, {force:true});
+    cy.contains(data.slaConfig.name).should('be.visible')
+
+    //edit
+    cy.get(':nth-child(4) > tbody > .has-text-left > .action-buttons > button > .fa').click({force:true});
+    cy.get('select').select('8');
+    cy.get('.panel-block > .columns > .has-text-right > .create-button').click();
+    cy.get('#feature1').click();
+    cy.get('#\\31 29').type(data.slaConfig.time);
+    cy.get('#\\31 30').type(data.slaConfig.time);
+    cy.get('#\\31 31').type(data.slaConfig.time);
+    cy.get('#\\31 37').type(data.slaConfig.time);
+    cy.get('#\\31 38').type(data.slaConfig.time);
+    cy.get('#\\31 39').type(data.slaConfig.time);
+    cy.get(':nth-child(5) > .column > :nth-child(2)').click();
+    cy.get('.notification').should('be.visible')
+    
+    //add override
+    cy.get(':nth-child(7) > :nth-child(1) > .create-button').click();
+    cy.get(':nth-child(1) > .control > .input').type(data.slaConfig.overrideCode);
+    cy.get('form > .modal-card-body').click();
+    cy.get('.modal-card-body > :nth-child(2) > .control > .input').type(data.slaConfig.overrideDesc);
+    cy.get('form > .modal-card-foot > .button').click();
+    cy.get(':nth-child(2) > .level > .level-right > :nth-child(2) > .buttons > #elem_next').click();
+    cy.get(':nth-child(2) > .level > .level-right > :nth-child(2) > .buttons').click();
+    cy.get('.notification').should('be.visible')
     /* ==== End Cypress Studio ==== */
   });
 })

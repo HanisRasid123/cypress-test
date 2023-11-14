@@ -26,5 +26,12 @@
   },
   "bloodDataFilename": "Blood_Data_List_ORG8_",
   "fpTrackingId": "FPAAAY6633",
-  "locationSetting":"TestLocationSetting"
+  "locationSetting":"TestLocationSetting",
+  "clinicalAreaSetting": "TestAreaSetting",
+  "slaConfig":{
+    "name": "slaTestConfig",
+    "time": 10,
+    "overrideCode": "TEST",
+    "overrideDesc": "This is a test description."
+  }
 }
