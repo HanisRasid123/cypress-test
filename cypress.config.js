@@ -6,9 +6,13 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       // implement node event listeners here
       on('task', {
-        downloads:  (downloadspath) => {
-          return fs.readdirSync(downloadspath)
-        }
+        readFileMaybe(filename) {
+          if (fs.existsSync(filename)) {
+            var list = fs.readdirSync(filename)
+            return list
+          }
+          return null
+        },
       })
     },
     experimentalStudio: true,

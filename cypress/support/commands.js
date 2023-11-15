@@ -11,6 +11,8 @@
 //
 // -- This is a parent command --
 import data from '../fixtures/example.json'
+import moment from 'moment/moment';
+
 
 Cypress.Commands.add('login', (email, password) => { 
   cy.visit(data.host);
@@ -23,6 +25,30 @@ Cypress.Commands.add('login', (email, password) => {
   cy.get('#pie-chart').should('be.visible')
   cy.get('#doughnut-chart').should('be.visible')
 })
+//TODO: fs.readdir is not recognised as a function. Need this function to return an array of files. then filter for fractionated product and pass to cy.readFile
+Cypress.Commands.add('download',(downloadPath, filePrefix, fileType) => {
+    const now = new Date();
+    var fileTs = 0;
+    var files = [];
+    var filename = "";
+    if (filePrefix.includes("Fractionated_Product")) {
+      cy.task('readFileMaybe', downloadPath)
+      .then(returnArray =>{
+        files = returnArray.filter((i)=>{
+          return i.includes(filePrefix)
+        })
+        filename = downloadPath + files[files.length - 1]
+      })
+      .then(()=>{
+        return cy.readFile(filename)
+      })
+    }
+    else {
+      fileTs = moment(now).format("DDMMYYYY_HHmm")
+      filename = downloadPath + filePrefix + fileTs + fileType;
+      return cy.readFile(filename)
+    }
+  })
 //
 //
 // -- This is a child command --

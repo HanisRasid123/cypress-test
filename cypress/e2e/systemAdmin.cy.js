@@ -1,5 +1,6 @@
 import moment from 'moment/moment';
 import data from '../fixtures/example.json'
+import fs from 'fs'
 
 beforeEach(()=> {
   cy.login(data.sysAdminEmail, data.sysAdminPassword)
@@ -218,8 +219,9 @@ describe('System Admin', () => {
     cy.get('.create-button').click();
     cy.url().should('include','/system-admin/user/location-group-process')
     cy.get('.input').type('TestLocationGroup');
-    cy.get('select').select('1');
-    cy.get(':nth-child(2) > .field > .control > .select > select').select('1');
+    cy.get('select').select('1').then(()=>{
+      cy.get(':nth-child(2) > .field > .control > .select > select').select('1');
+    })
     cy.get('.panel-block > .columns > .has-text-right > .create-button').click();
     cy.get(':nth-child(5) > .column > :nth-child(2)').click();
     cy.url().should('include','/system-admin/user/location-groups')
@@ -283,7 +285,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('patientData', function() {
+  it.only('patientData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -293,21 +295,15 @@ describe('System Admin', () => {
     cy.get('.menu-toggle > .fa').click();
     cy.get('.configuration__list > :nth-child(1)').click();
     cy.get('select').select('HSA');
-    cy.intercept('http://localhost:8080/api/organisation').as('wait')
     cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(1)').click();
-    cy.wait('@wait')
     cy.url().should('include',"/system-product/patient-data")
+
     
     //download file and verify
-    var beforeDownload = 0;
-    cy.task('downloads', 'cypress/downloads').then(before => {
-      beforeDownload = before
+    cy.get('tbody').should('be.visible').then(()=>{
       cy.get(':nth-child(2) > .create-button-margin').click({force:true})
     })
-    cy.wait(3000)
-    cy.task('downloads', 'cypress/downloads').then(after => {
-      expect(after.length).to.be.eq(beforeDownload.length +1)  
-    })
+    cy.download(data.downloadPath, data.patientDataFilePrefix, ".0.xlsx").should('exist')
 
     //add patient
     cy.get(':nth-child(1) > .create-button-margin').click({force:true});
@@ -326,7 +322,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('bloodData', function() {
+  it.only('bloodData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -339,15 +335,10 @@ describe('System Admin', () => {
     cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(5)').click();
 
     //download and verify
-    var beforeDownload = 0;
-    cy.task('downloads', 'cypress/downloads').then(before => {
-      beforeDownload = before
-      cy.get('.create-button-margin').click({force:true});
+    cy.get('.create-button-margin').click({force:true}).then(()=>{
+      cy.download(data.downloadPath, data.bloodDataFilePrefix, ".0.xlsx").should('exist')
     })
-    cy.wait(3000)
-    cy.task('downloads', 'cypress/downloads').then(after => {
-      expect(after.length).to.be.eq(beforeDownload.length +1)  
-    })
+
 
     //test search function
     cy.get('.input').type(data.bloodComponent.donationId, {force:true});
@@ -362,13 +353,10 @@ describe('System Admin', () => {
     cy.get('#select_status').select("1",{force:true})
     cy.contains(data.bloodComponent.componentCat).should('be.visible')
     cy.get('.create-button-margin').click({force:true});
-    //get current date
-    const now = new Date();
-    let fileTS = moment(now).format("DDMMYYYY_HHmm")
-    //parse date for file name
-    let filename = data.bloodDataFilename + fileTS + ".0.xlsx";
+    //get current date ------------------PUT INTO CUSTOM METHOD
+    cy.download(data.downloadPath, data.bloodDataFilePrefix, ".0.xlsx").as("file")
     //search file name and assert include compCat and not include !compCat
-    cy.readFile("cypress/downloads/" + filename).should('contain', data.bloodComponent.componentCat).and('not.contain', 'Platelets').and('not.contain',"Plasma")
+    cy.get('@file').should('contain', data.bloodComponent.componentCat).and('not.contain', 'Platelets').and('not.contain',"Plasma")
     /* ==== End Cypress Studio ==== */
   });
 
@@ -393,7 +381,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('fractionatedProductStatus', function() {
+  it.only('fractionatedProductStatus', function() {
     /* ==== Generated with Cypress Studio ==== */
     //navigate
     cy.get('[data-name="Configuration"]').click();
@@ -407,16 +395,10 @@ describe('System Admin', () => {
     cy.contains(data.fpTrackingId).should('be.visible')
 
     //download
-    var beforeDownload = 0;
-    cy.task('downloads', 'cypress/downloads').then(before => {
-      beforeDownload = before
-      cy.get('.create-button').click({force:true});
-    })
-    cy.wait(3000)
-    cy.task('downloads', 'cypress/downloads').then(after => {
-      expect(after.length).to.be.eq(beforeDownload.length +1)  
-    })
-    /* ==== End Cypress Studio ==== */
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download')
+    cy.get('.create-button').click({force:true});
+    cy.wait('@download')
+    cy.download(data.downloadPath,data.fractionatedDataFilePrefix,'.xlsx').should('include', data.fpTrackingId)
   });
 
   /* ==== Test Created with Cypress Studio ==== */
@@ -515,7 +497,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('slaConfig', function() {
+  it('slaConfig', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -543,7 +525,7 @@ describe('System Admin', () => {
     cy.get('#42').type(data.slaConfig.time);
     cy.get('#43').type(data.slaConfig.time);
     cy.get(':nth-child(5) > .column > :nth-child(2)').click();
-    cy.get('.notification').should('be.visible')
+    cy.get('.notification > :nth-child(4)').should('be.visible')
 
     //search
     cy.get('.input[placeholder="Search"]').type(data.slaConfig.name, {force:true});
@@ -561,7 +543,7 @@ describe('System Admin', () => {
     cy.get('#\\31 38').type(data.slaConfig.time);
     cy.get('#\\31 39').type(data.slaConfig.time);
     cy.get(':nth-child(5) > .column > :nth-child(2)').click();
-    cy.get('.notification').should('be.visible')
+    cy.get('.notification > :nth-child(4)').should('be.visible')
     
     //add override
     cy.get(':nth-child(7) > :nth-child(1) > .create-button').click();
@@ -569,9 +551,7 @@ describe('System Admin', () => {
     cy.get('form > .modal-card-body').click();
     cy.get('.modal-card-body > :nth-child(2) > .control > .input').type(data.slaConfig.overrideDesc);
     cy.get('form > .modal-card-foot > .button').click();
-    cy.get(':nth-child(2) > .level > .level-right > :nth-child(2) > .buttons > #elem_next').click();
-    cy.get(':nth-child(2) > .level > .level-right > :nth-child(2) > .buttons').click();
-    cy.get('.notification').should('be.visible')
+    cy.get('.notification.showToastClass').should('be.visible')
     /* ==== End Cypress Studio ==== */
   });
 })
