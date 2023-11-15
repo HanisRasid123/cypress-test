@@ -25,13 +25,13 @@ Cypress.Commands.add('login', (email, password) => {
   cy.get('#pie-chart').should('be.visible')
   cy.get('#doughnut-chart').should('be.visible')
 })
-//TODO: fs.readdir is not recognised as a function. Need this function to return an array of files. then filter for fractionated product and pass to cy.readFile
+
 Cypress.Commands.add('download',(downloadPath, filePrefix, fileType) => {
     const now = new Date();
     var fileTs = 0;
     var files = [];
     var filename = "";
-    if (filePrefix.includes("Fractionated_Product")) {
+    if (filePrefix.includes("Fractionated_Product") || filePrefix.includes("Master_File")) {
       cy.task('readFileMaybe', downloadPath)
       .then(returnArray =>{
         files = returnArray.filter((i)=>{

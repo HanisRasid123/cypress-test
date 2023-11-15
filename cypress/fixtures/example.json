@@ -36,5 +36,9 @@
     "time": 10,
     "overrideCode": "TEST",
     "overrideDesc": "This is a test description."
-  }
+  },
+  "fpMasterFilePath": "cypress/uploads/Fractionated_Product_Master_File_1700021484713.xlsx",
+  "bcMasterFilePath": "cypress/uploads/Master_File_CODABAR_1700021757673.xlsx",
+  "bcMasterFilePrefix":"Master_File_CODABAR_",
+  "fpMasterFilePrefix": "Fractionated_Product_Master_File_"
 }

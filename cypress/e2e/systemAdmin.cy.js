@@ -285,7 +285,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('patientData', function() {
+  it('patientData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -322,7 +322,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('bloodData', function() {
+  it('bloodData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -381,7 +381,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('fractionatedProductStatus', function() {
+  it('fractionatedProductStatus', function() {
     /* ==== Generated with Cypress Studio ==== */
     //navigate
     cy.get('[data-name="Configuration"]').click();
@@ -552,6 +552,51 @@ describe('System Admin', () => {
     cy.get('.modal-card-body > :nth-child(2) > .control > .input').type(data.slaConfig.overrideDesc);
     cy.get('form > .modal-card-foot > .button').click();
     cy.get('.notification.showToastClass').should('be.visible')
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('masterFiles', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle').click();
+    cy.get('[data-name="Configuration"]').click();
+    cy.get('[data-name="Configuration"] > .custom-dropdown > .custom-dropdown__items').click();
+    cy.get('.menu-toggle').click();
+    cy.get('.configuration__list > :nth-child(5)').click();
+    cy.get('select').select('HSA');
+
+    //upload blood component file
+    cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(1)').click();
+    cy.url().should('include','system-product/upload-blood-component-master-file')
+    cy.get('.placeholder > .fa').click();
+    cy.get('#userFile').selectFile(data.bcMasterFilePath, {force:true});
+    cy.get('.create-button').click();
+    cy.contains('Results').should('be.visible')
+    cy.get('.back').click({force:true});
+
+    //download blood component file
+    cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(3)').click();
+    cy.url().should('include','system-product/download-blood-component-master-file')
+    cy.get('.create-button').click();
+    cy.download(data.downloadPath,data.bcMasterFilePrefix,'.xlsx').should('exist')
+    cy.get('.back > p').click({force:true});
+
+    //upload fractionated product file
+    cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(5)').click();
+    cy.url().should('include','system-product/upload-fractionated-product-master-file')
+    cy.get('.placeholder').click();
+    cy.get('#userFile').selectFile(data.fpMasterFilePath, {force:true});
+    cy.get('.create-button').click();
+    cy.contains('Results').should('be.visible')
+    cy.get('.back > p').click({force:true});
+
+    //download fractionated product file
+    cy.get('.configuration__list > :nth-child(7)').click();
+    cy.url().should('include','system-product/download-fractionated-product-master-file')
+    cy.get('.create-button').click();
+    cy.download(data.downloadPath,data.fpMasterFilePrefix,'.xlsx').should('exist')
     /* ==== End Cypress Studio ==== */
   });
 })
