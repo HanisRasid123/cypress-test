@@ -658,7 +658,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('systemAdministration', function() {
+  it('systemAdministration', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -696,6 +696,57 @@ describe('System Admin', () => {
     cy.get('.button > .fa').click();
     cy.get('.activate-deactivate-modal > .modal > .modal-card > .modal-card-foot > .button').click();
     cy.get('.status').colourCheck(23,190,187)
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('alerts', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Alerts"]').click();
+    cy.get('.menu-toggle > .fa').click();
+    
+    //fractionated product location tracking
+    cy.get('.configuration__list > :nth-child(1)').click();
+    cy.get(':nth-child(3) > .control > .select > select').select('8');
+    cy.get('#AtLocationQA_Test_Location0 > :nth-child(1) > :nth-child(1) > :nth-child(2)').click();
+    cy.get('.status').colourCheck(3,156,16)
+    cy.get('#AtLocationQA_Test_Location0 > :nth-child(1) > :nth-child(1) > :nth-child(5)').click();
+    cy.get('.status').colourCheck(218, 29, 58)
+    cy.get('.back > p').click({force:true});
+
+    //blood component location tracking
+    cy.get('.configuration__list > :nth-child(3)').click();
+    cy.get(':nth-child(1) > .control > .select > select').select('8');
+    cy.get('#InTransitAkshaylocation0 > :nth-child(1) > :nth-child(1) > :nth-child(2) > .counter').click();
+    cy.get('.status').colourCheck(3,156,16)
+    cy.get('#InTransitAkshaylocation0 > :nth-child(1) > :nth-child(1) > :nth-child(5) > :nth-child(1)').click();
+    cy.get('.status').colourCheck(218, 29, 58)
+    cy.get('.back > .fa').click({force:true});
+
+    //blood component category tracking
+    cy.get('.configuration__list > :nth-child(5)').click();
+    cy.get(':nth-child(1) > .control > .select > select').should('be.visible').then(()=>{
+      cy.get(':nth-child(1) > .control > .select > select').select('8')
+    })
+    cy.get('.noRightMargin > :nth-child(2)').click();
+    cy.get('.status').colourCheck(3,156,16)
+    cy.get('.noRightMargin > :nth-child(5) > :nth-child(1)').click();
+    cy.get('.status').colourCheck(218, 29, 58)
+    cy.get('.back > p').click({force:true});
+
+    //blood component crossmatch status tracking
+    cy.get('.configuration__list > :nth-child(7)').click();
+    cy.get(':nth-child(1) > .control > .select > select').should('be.visible').then(()=>{
+      cy.get(':nth-child(1) > .control > .select > select').select('8')
+    })
+    cy.get('#false1 > .noRightMargin > :nth-child(2) > :nth-child(1)').click({force:true});
+    cy.get('.status').colourCheck(3,156,16)
+    cy.get('#false1 > .noRightMargin > :nth-child(5) > :nth-child(1)').click();
+    cy.get('.status').colourCheck(218, 29, 58)
+    cy.get('.back > p').click({force:true});
     /* ==== End Cypress Studio ==== */
   });
 })
