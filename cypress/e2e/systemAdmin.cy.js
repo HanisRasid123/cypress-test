@@ -556,7 +556,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('masterFiles', function() {
+  it('masterFiles', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -597,6 +597,105 @@ describe('System Admin', () => {
     cy.url().should('include','system-product/download-fractionated-product-master-file')
     cy.get('.create-button').click();
     cy.download(data.downloadPath,data.fpMasterFilePrefix,'.xlsx').should('exist')
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('signOutRegister', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="Reports"]').click();
+    cy.get('.menu-toggle > .fa').click();
+    cy.get(':nth-child(2) > .configuration__content-info > .configuration__list > :nth-child(1)').click();
+    cy.url().should('include','report/sign-out-register')
+
+    //download
+    cy.get('tbody').should('be.visible')
+    cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click({force:true});
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
+    cy.get('.download-xlxs-button').click({force:true});
+    cy.wait('@download1')
+    cy.download(data.downloadPath, data.signOutRegisterFilePrefix, ".0.xlsx").should('exist')
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
+    cy.get('.download-csv-button').click({force:true});
+    cy.wait('@download2')
+    cy.download(data.downloadPath, data.signOutRegisterFilePrefix, ".0.csv").should('exist')
+    
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
+    cy.get('.download-pdf-button').click({force:true});
+    cy.wait('@download3')
+    cy.download(data.downloadPath, data.signOutRegisterFilePrefix, ".pdf").should('exist')
+
+    cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click({force:true});
+    
+    //archive TODO: can't test bc no data error and env var
+    cy.get('.archive-col > .collapse-trigger > .print-report-button').click({force:true});
+    cy.get(':nth-child(3) > :nth-child(2) > .control > .select > select').select('01',{force:true});
+    cy.get(':nth-child(3) > :nth-child(3) > .control > .select > select').select('2022',{force:true});
+    cy.get(':nth-child(4) > :nth-child(2) > .control > .select > select').select('03',{force:true});
+    cy.get(':nth-child(4) > :nth-child(3) > .control > .select > select').select('2022',{force:true});
+    cy.get('.archive-data-button').click({force:true});
+    
+    //filters
+    cy.get(':nth-child(1) > :nth-child(1) > .field > .control > .select > select').select('8', {force:true});
+    cy.get('.min100Width > :nth-child(1) > .field > .control > .select > select').select('91', {force:true});
+    cy.get('.min100Width > :nth-child(1) > .field > .control > .select > select').select('all', {force:true});
+    cy.get(':nth-child(6) > .field > .control > .input').type(data.signOutRegisterName, {force:true});
+    
+    //need to test advanced filters
+    cy.get('.panel-heading').click()
+    cy.get('.my-level > :nth-child(3) > .control > .select > select').select('1', {force:true})
+    cy.get('.create-button').click({force:true})
+    cy.get('tbody').contains('JOHN CENA').should('be.visible')
+    cy.get('tbody').contains('Red Cells').should('be.visible')
+    cy.get('tbody').contains('Platelets').should('not.exist')
+    cy.get('tbody').contains('Plasma').should('not.exist')
+    /* ==== End Cypress Studio ==== */
+  });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it.only('systemAdministration', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.get('.menu-toggle > .fa').click();
+    cy.get('[data-name="System Administration"]').click();
+    cy.get('.menu-toggle > .fa').click();
+    cy.url().should('include', '/system-admin/user')
+
+    //create new admin user
+    cy.get('.sysadmin-user > :nth-child(1) > :nth-child(1) > :nth-child(1)').click({force:true});
+    cy.get(':nth-child(1) > :nth-child(1) > .control > .input').type(data.userFName);
+    cy.get(':nth-child(1) > :nth-child(2) > .control > .input').type(data.userLName);
+    cy.get(':nth-child(2) > :nth-child(1) > .control > .input').type(data.userEmail);
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get('.notification > :nth-child(4)').contains('System Admin User Created Successfully.').should('be.visible')
+
+    //search user
+    cy.get('.input[placeholder="Search"]').type(data.userFName + " " + data.userLName,{force:true});
+    cy.get('tbody > tr > :nth-child(1) > .custom-checkbox > .checkmark').click();
+    cy.get('tbody').contains('rasid').should('be.visible')
+
+    //edit user
+    cy.get('[data-label="Edit User"] > .button > .fas').click();
+    cy.get('.modal-card-body > :nth-child(2)').click();
+    cy.get(':nth-child(2) > :nth-child(2) > .control > .input').clear();
+    cy.get(':nth-child(2) > :nth-child(2) > .control > .input').type('Test');
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get('tbody').contains('hanis rasid').should('not.exist')
+    cy.get('.notification > :nth-child(4)').contains('System Admin User Updated Successfully.').should('be.visible')
+
+    //search and activate
+    cy.get('.input[placeholder="Search"]').clear();
+    cy.get('.input[placeholder="Search"]').type(data.userFName + ' Test');
+    cy.get('tr').contains('Test').should('be.visible')
+    cy.get('.button > .fa').click();
+    cy.get('.activate-deactivate-modal > .modal > .modal-card > .modal-card-foot > .button').click();
+    cy.get('.status').colourCheck(23,190,187)
     /* ==== End Cypress Studio ==== */
   });
 })
