@@ -601,7 +601,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('signOutRegister', function() {
+  it('bloodSignOutRegister', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -612,25 +612,7 @@ describe('System Admin', () => {
     cy.url().should('include','report/sign-out-register')
 
     //download
-    cy.get('tbody').should('be.visible')
-    cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click({force:true});
-
-    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
-    cy.get('.download-xlxs-button').click({force:true});
-    cy.wait('@download1')
-    cy.download(data.downloadPath, data.signOutRegisterFilePrefix, ".0.xlsx").should('exist')
-
-    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
-    cy.get('.download-csv-button').click({force:true});
-    cy.wait('@download2')
-    cy.download(data.downloadPath, data.signOutRegisterFilePrefix, ".0.csv").should('exist')
-    
-    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
-    cy.get('.download-pdf-button').click({force:true});
-    cy.wait('@download3')
-    cy.download(data.downloadPath, data.signOutRegisterFilePrefix, ".pdf").should('exist')
-
-    cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click({force:true});
+    cy.downloadAndValidateReports();
     
     //archive TODO: can't test bc no data error and env var
     cy.get('.archive-col > .collapse-trigger > .print-report-button').click({force:true});
@@ -700,7 +682,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('alerts', function() {
+  it('alerts', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -749,4 +731,100 @@ describe('System Admin', () => {
     cy.get('.back > p').click({force:true});
     /* ==== End Cypress Studio ==== */
   });
+
+  /* ==== Test Created with Cypress Studio ==== */
+  it('bloodStockLevelReport', function() {
+    /* ==== Generated with Cypress Studio ==== */
+
+    //navigate
+    cy.navigateToReportPage('Stock Level Report', '/report/stock-level-report')
+
+    //download
+    cy.downloadAndValidateReports(data.stockLevelReportFilePrefix);
+
+    //test search filters
+    cy.get('.is-grouped-multiline > :nth-child(1) > .control > .select > select').select('8',{force:true});
+    cy.get('.is-grouped-multiline > :nth-child(2) > .control > .select > select').select('64',{force:true});
+    cy.get('abbr').contains('QA_Test_Location').should('exist')
+    cy.get('.is-grouped-multiline > :nth-child(4) > .control > .input').type('wdp1001',{force:true});
+    cy.get('abbr').contains('WDP1001').should('exist').and('have.length', 1)
+    cy.get('.panel-heading').click({force:true});
+    cy.get('.my-level > :nth-child(2) > .control > .select > select').select('1',{force:true});
+    cy.get('.create-button').click({force:true});
+    /* ==== End Cypress Studio ==== */
+  });
+
+  it.only('emergencyStockLevelReport', ()=>{
+
+    //navigate
+    cy.navigateToReportPage('Emergency Blood Stock Level Report', 'report/emergency-blood-stock-level-report')
+
+    //download
+    cy.downloadAndValidateReports(data.emergencyBloodStockReportFilePrefix);
+
+    //test search filters
+    cy.get('.is-grouped-multiline > :nth-child(1) > .control > .select > select').select('8',{force:true})
+    cy.get('.is-grouped-multiline > :nth-child(2) > .control > .select > select').select('64', {force:true})
+    cy.get('.panel-heading').click({force:true})
+    cy.get('.my-level > :nth-child(2) > .control > .select > select').select('1',{force:true})
+    cy.get('.my-level > :nth-child(3) > .control > .input').type('HSA1122',{force:true})
+    cy.get('.create-button').click({force:true})
+
+    cy.get('abbr').contains("HSA1122").should('be.length',1)
+    cy.get('abbr').contains("QA_Test_Location").should('be.length',1)
+    cy.get('abbr').contains("Red Cells").should('be.length',1)
+  });
+
+  // it.only('bloodTransactionsSummaryReport', ()=>{
+  //   //navigate
+  //   cy.navigateToReportPage('Blood Transactions Report (Summary)', 'report/blood-transactions-report')
+  // })
+
+  // it.only('bloodTransactionHistoryDetailedReport', ()=>{
+  //   cy.navigateToReportPage('Blood Transactions History Report (Detailed)', 'report/blood-transaction-history-report')
+  // })
+
+  // it.only('bloodAnalyticReport', ()=>{
+  //   cy.navigateToReportPage('Blood Analytic Report', '/report/blood-analytic-report')
+  // })
+
+  // it.only('fpSignOutRegister', ()=>{
+  //   cy.navigateToReportPage('Fractionated Product Sign Out Register', '/report/fractionated-product-sign-out-register')
+  // })
+
+  // it.only('fpStockLevelReport', ()=>{
+  //   cy.navigateToReportPage('Fractionated Product Stock Level Report', 'report/fractionated-product-stock-level-report')
+  // })
+
+  // it.only('fpTransactionsSummaryReport', ()=>{
+  //   cy.navigateToReportPage('Fractionated Product Transactions Report (Summary)','report/fractionated-product-transaction-report')
+  // })
+
+  // it.only('fpTransactionHistoryDetailedReport', ()=>{
+  //   cy.navigateToReportPage('Fractionated Product Transactions History Report (Detailed)', 'report/fractionated-product-transaction-history-report')
+  // })
+
+  // it.only('fpStockReconciliationReport', ()=>{
+  //   cy.navigateToReportPage('Fractionated Product Transactions Report (Stock Reconciliation)','report/fractionated-product-transaction-report-stock-reconciliation')
+  // })
+
+  // it.only('webAuditReport', ()=>{
+  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(1)')
+  // })
+
+  // it.only('appAuditReport', ()=>{
+  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(3)')
+  // })
+
+  // it.only('stockAuditReport', ()=>{
+  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(5)')
+  // })
+
+  // it.only('slaAuditReport', ()=>{
+  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(7)')
+  // })
+
+  // it.only('timeTrackingStatusReport', ()=>{
+  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(9)')
+  // })
 })

@@ -42,5 +42,7 @@
   "bcMasterFilePrefix":"Master_File_CODABAR_",
   "fpMasterFilePrefix": "Fractionated_Product_Master_File_",
   "signOutRegisterFilePrefix": "Signout_Register_Data_List_",
-  "signOutRegisterName": "John Cena"
+  "signOutRegisterName": "John Cena",
+  "stockLevelReportFilePrefix": "Stock_Level_Report_",
+  "emergencyBloodStockReportFilePrefix": "Emergency_Stock_Level_Report_"
 }
