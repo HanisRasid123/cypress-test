@@ -55,6 +55,37 @@ Cypress.Commands.add('download',(downloadPath, filePrefix, fileType) => {
 Cypress.Commands.add('colourCheck', { prevSubject: 'element'}, (subject, r, g, b) => {
   cy.wrap(subject).should('have.css','border-color','rgb(' + r + ', ' + g + ', ' + b + ')');
 })
+
+
+Cypress.Commands.add('downloadAndValidateReports', (prefix)=>{
+  cy.get('tbody').should('be.visible')
+  cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click({force:true});
+
+  cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
+  cy.get('.download-xlxs-button').click({force:true});
+  cy.wait('@download1')
+  cy.download(data.downloadPath, prefix, ".0.xlsx").should('exist')
+
+  cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
+  cy.get('.download-csv-button').click({force:true});
+  cy.wait('@download2')
+  cy.download(data.downloadPath, prefix, ".0.csv").should('exist')
+
+  cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
+  cy.get('.download-pdf-button').click({force:true});
+  cy.wait('@download3')
+  cy.download(data.downloadPath, prefix, ".pdf").should('exist')
+
+  cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click({force:true});
+})
+
+Cypress.Commands.add('navigateToReportPage', (pageName, url)=>{
+  cy.get('.menu-toggle > .fa').click();
+  cy.get('[data-name="Reports"]').click();
+  cy.get('.menu-toggle').click();
+  cy.get('a').contains(pageName).click();
+  cy.url().should('include', url)
+})
 //
 //
 // -- This is a dual command --
