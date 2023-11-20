@@ -906,7 +906,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('fpStockLevelReport', ()=>{
+  it('fpStockLevelReport', ()=>{
     cy.navigateToReportPage('Fractionated Product Stock Level Report', 'report/fractionated-product-stock-level-report')
     cy.downloadAndValidateReports(data.fpStockLevelReportPrefix)
     /* ==== Generated with Cypress Studio ==== */
@@ -922,9 +922,42 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  // it.only('fpTransactionsSummaryReport', ()=>{
-  //   cy.navigateToReportPage('Fractionated Product Transactions Report (Summary)','report/fractionated-product-transaction-report')
-  // })
+  it.only('fpTransactionsSummaryReport', ()=>{
+    cy.navigateToReportPage('Fractionated Product Transactions Report (Summary)','report/fractionated-product-transaction-report')
+    cy.get('[aria-id="print-options"] > .collapse-trigger > .primary-button').click();
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
+    cy.get('.download-xlxs-button').click();
+    cy.wait('@download1')
+    cy.download(data.downloadPath, data.fpTransactionsReportPrefix, ".0.xlsx").should('exist')
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
+    cy.get('.download-csv-button').click();
+    cy.wait('@download2')
+    cy.download(data.downloadPath, data.fpTransactionsReportPrefix, ".0.csv").should('exist')
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
+    cy.get('.download-pdf-button').click();
+    cy.wait('@download3')
+    cy.download(data.downloadPath, data.fpTransactionsReportPrefix, ".pdf").should('exist')
+
+    cy.get('[aria-id="print-options"] > .collapse-trigger > .primary-button').click();
+    /* ==== Generated with Cypress Studio ==== */
+    //archive
+    cy.get('.archive-col > .collapse-trigger > .primary-button').click();
+    cy.get(':nth-child(3) > :nth-child(2) > .control > .select > select').select('10');
+    cy.get(':nth-child(3) > :nth-child(3) > .control > .select > select').select('2023');
+    cy.get(':nth-child(4) > :nth-child(2) > .control > .select > select').select('10');
+    cy.get(':nth-child(4) > :nth-child(3) > .control > .select > select').select('2023');
+    cy.get('.archive-data-button').click();
+    cy.get('.download-archive-data-button').click();
+
+    //search
+    cy.get(':nth-child(6) > .field > .control > .input').type('advate');
+    cy.get('abbr').contains('ADVATE').scrollIntoView().as('search')
+    cy.get('@search').should('be.visible')
+    /* ==== End Cypress Studio ==== */
+  })
 
   // it.only('fpTransactionHistoryDetailedReport', ()=>{
   //   cy.navigateToReportPage('Fractionated Product Transactions History Report (Detailed)', 'report/fractionated-product-transaction-history-report')
