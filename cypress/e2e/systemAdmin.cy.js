@@ -772,7 +772,7 @@ describe('System Admin', () => {
     cy.get('abbr').contains("Red Cells").should('be.length',1)
   });
 
-  it.only('bloodTransactionsSummaryReport', ()=>{
+  it('bloodTransactionsSummaryReport', ()=>{
     //navigate
     cy.navigateToReportPage('Blood Transactions Report (Summary)', 'report/blood-transactions-report')
 
@@ -823,9 +823,44 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  // it.only('bloodTransactionHistoryDetailedReport', ()=>{
-  //   cy.navigateToReportPage('Blood Transactions History Report (Detailed)', 'report/blood-transaction-history-report')
-  // })
+  it.only('bloodTransactionHistoryDetailedReport', ()=>{
+    cy.navigateToReportPage('Blood Transactions History Report (Detailed)', 'report/blood-transaction-history-report')
+
+    //DOWNLOAD
+    cy.get('tbody').should('be.visible')
+    cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').forceClick();
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
+    cy.get('.download-xlxs-button').forceClick();
+    cy.wait('@download1')
+    cy.download(data.downloadPath, data.bloodTransactionsHistoryReportXLSXPrefix, ".0.xlsx").should('exist')
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
+    cy.get('.download-csv-button').forceClick();
+    cy.wait('@download2')
+    cy.download(data.downloadPath, data.bloodTransactionsHistoryReportPrefix, ".0.csv").should('exist')
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
+    cy.get('.download-pdf-button').forceClick();
+    cy.wait('@download3')
+    cy.download(data.downloadPath, data.bloodTransactionsHistoryReportPrefix, ".pdf").should('exist')
+
+    cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').forceClick();
+
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('.is-grouped-multiline > .field > .control > .select > select').select('8',{force:true});
+    cy.get(':nth-child(2) > :nth-child(2) > .field > .control > .select > select').select('64',{force:true});
+    cy.get(':nth-child(6) > .field > .control > .select > select').select('Issue',{force:true});
+    cy.get(':nth-child(7) > .field > .control > .select > select').select('1',{force:true});
+    cy.get('.panel-heading').forceClick();
+    cy.get(':nth-child(3) > .control > .input').type('KKKK123',{force:true});
+    cy.get('.create-button').forceClick();
+    cy.get('tbody').contains('KKKK123').scrollIntoView().should('be.visible')
+    cy.get('tbody').contains('QA_Test_Location').should('be.visible')
+    cy.get('tbody').contains('Red Cells').scrollIntoView().should('be.visible')
+
+    /* ==== End Cypress Studio ==== */
+  })
 
   // it.only('bloodAnalyticReport', ()=>{
   //   cy.navigateToReportPage('Blood Analytic Report', '/report/blood-analytic-report')

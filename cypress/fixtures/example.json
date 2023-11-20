@@ -46,5 +46,7 @@
   "stockLevelReportFilePrefix": "Stock_Level_Report_",
   "emergencyBloodStockReportFilePrefix": "Emergency_Stock_Level_Report_",
   "bloodTransactionsSummaryReportFilePrefix": "Blood_Transactions_Report_",
-  "bloodTransactionsReportArchivePrefix": "ARCHIVE_BLOOD_TRANSACTIONS_REPORT(SUMMARY)_"
+  "bloodTransactionsReportArchivePrefix": "ARCHIVE_BLOOD_TRANSACTIONS_REPORT(SUMMARY)_",
+  "bloodTransactionsHistoryReportXLSXPrefix": "Blood_Transactions_History_Report_",
+  "bloodTransactionsHistoryReportPrefix": "Blood_Transaction_History_Report_"
 }
