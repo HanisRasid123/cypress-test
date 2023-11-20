@@ -52,5 +52,6 @@
   "bloodAnalyticsReportPrefix": "Blood_Analytics_Report_",
   "fpSignOutRegisterPrefix": "Fractionated_Product_Signout_Register_",
   "fpStockLevelReportPrefix":"Fractionated_Product_Stock_Level_Report_",
-  "fpTransactionsReportPrefix":"Fractionated_Product_Transactions_Report_"
+  "fpTransactionsReportPrefix":"Fractionated_Product_Transactions_Report_",
+  "fpTransactionsHistoryReportPrefix":"Fractionated_Product_Transaction_History_Report_"
 }

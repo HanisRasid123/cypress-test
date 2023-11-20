@@ -922,7 +922,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('fpTransactionsSummaryReport', ()=>{
+  it('fpTransactionsSummaryReport', ()=>{
     cy.navigateToReportPage('Fractionated Product Transactions Report (Summary)','report/fractionated-product-transaction-report')
     cy.get('[aria-id="print-options"] > .collapse-trigger > .primary-button').click();
 
@@ -959,9 +959,17 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  // it.only('fpTransactionHistoryDetailedReport', ()=>{
-  //   cy.navigateToReportPage('Fractionated Product Transactions History Report (Detailed)', 'report/fractionated-product-transaction-history-report')
-  // })
+  it.only('fpTransactionHistoryDetailedReport', ()=>{
+    cy.navigateToReportPage('Fractionated Product Transactions History Report (Detailed)', 'report/fractionated-product-transaction-history-report')
+    cy.downloadAndValidateReports(data.fpTransactionsHistoryReportPrefix)
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('.is-grouped-multiline > .field > .control > .select > select').select('8');
+    cy.get(':nth-child(4) > :nth-child(2) > .field > .control > .select > select').select('64');
+    cy.get(':nth-child(6) > .field > .control > .select > select').select('Issue');
+    cy.get('tbody').contains('ADVATE').should('be.visible')
+    cy.get('tbody').contains('Issue').should('be.visible')
+    /* ==== End Cypress Studio ==== */
+  })
 
   // it.only('fpStockReconciliationReport', ()=>{
   //   cy.navigateToReportPage('Fractionated Product Transactions Report (Stock Reconciliation)','report/fractionated-product-transaction-report-stock-reconciliation')
