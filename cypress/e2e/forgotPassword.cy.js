@@ -15,5 +15,6 @@ describe('Forgot password', ()=>{
 
     cy.get('.create-button').click();
     cy.get('.alert-link').click();
+    cy.url().should('include','/landing');
   });
 })
