@@ -44,5 +44,7 @@
   "signOutRegisterFilePrefix": "Signout_Register_Data_List_",
   "signOutRegisterName": "John Cena",
   "stockLevelReportFilePrefix": "Stock_Level_Report_",
-  "emergencyBloodStockReportFilePrefix": "Emergency_Stock_Level_Report_"
+  "emergencyBloodStockReportFilePrefix": "Emergency_Stock_Level_Report_",
+  "bloodTransactionsSummaryReportFilePrefix": "Blood_Transactions_Report_",
+  "bloodTransactionsReportArchivePrefix": "ARCHIVE_BLOOD_TRANSACTIONS_REPORT(SUMMARY)_"
 }
