@@ -971,7 +971,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('fpStockReconciliationReport', ()=>{
+  it('fpStockReconciliationReport', ()=>{
     cy.navigateToReportPage('Fractionated Product Transactions Report (Stock Reconciliation)','report/fractionated-product-transaction-report-stock-reconciliation')
     cy.downloadAndValidateReports(data.fpStockReconciliationReportPrefix)
     /* ==== Generated with Cypress Studio ==== */
@@ -988,9 +988,43 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  // it.only('webAuditReport', ()=>{
-  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(1)')
-  // })
+  it.only('webAuditReport', ()=>{
+    cy.navigateToReportPage('Web Audit Report', '/report/web-audit-report')
+    
+    //search
+    cy.get(':nth-child(1) > .field > .control > .select > select').select('8');
+    cy.get('tbody').contains('HSA').should('be.visible')
+    cy.get('label').contains('Date Range').siblings().children().children().select('1')
+
+    cy.get('.field > .control > .input').type('download');
+    cy.get('tbody').contains('Download').should('be.visible')
+
+
+    //download
+    cy.get('.collapse-trigger > .print-report-button').click();
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
+    cy.get('.download-xlxs-button').click();
+    cy.wait('@download1')
+    cy.download(data.downloadPath, data.webAuditReportPrefix, ".0.xlsx").should('exist')
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
+    cy.get('.download-csv-button').click();
+    cy.wait('@download2')
+    cy.download(data.downloadPath, data.webAuditReportPrefix, "..csv").should('exist')
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
+    cy.get('.download-pdf-button').click();
+    
+    //3 secs for every 1000 rows of data
+    cy.wait('@download3')
+    cy.download(data.downloadPath, data.webAuditReportPrefix, ".pdf").should('exist')
+
+    cy.get('.collapse-trigger > .print-report-button').click();
+    /* ==== Generated with Cypress Studio ==== */
+
+    /* ==== End Cypress Studio ==== */
+  })
 
   // it.only('appAuditReport', ()=>{
   //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(3)')
