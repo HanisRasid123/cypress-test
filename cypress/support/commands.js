@@ -18,7 +18,7 @@ Cypress.Commands.add('login', (email, password) => {
   cy.visit(data.host);
   cy.get(':nth-child(4) > .control > .input').type(email);
   cy.get(':nth-child(5) > .control > .input').type(password);
-  cy.get('.create-button').forceClick();
+  cy.get('.create-button').click();
 
   //assertions
   cy.url().should('include', '/system-admin/dashboard')
@@ -62,37 +62,41 @@ Cypress.Commands.add('colourCheck', { prevSubject: 'element'}, (subject, r, g, b
 
 Cypress.Commands.add('downloadAndValidateReports', (prefix)=>{
   cy.get('tbody').should('be.visible')
-  cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').forceClick();
+  cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click();
 
   cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
-  cy.get('.download-xlxs-button').forceClick();
+  cy.get('.download-xlxs-button').click();
   cy.wait('@download1')
   cy.download(data.downloadPath, prefix, ".0.xlsx").should('exist')
 
   cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
-  cy.get('.download-csv-button').forceClick();
+  cy.get('.download-csv-button').click();
   cy.wait('@download2')
   cy.download(data.downloadPath, prefix, ".0.csv").should('exist')
 
   cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
-  cy.get('.download-pdf-button').forceClick();
+  cy.get('.download-pdf-button').click();
   cy.wait('@download3')
   cy.download(data.downloadPath, prefix, ".pdf").should('exist')
 
-  cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').forceClick();
+  cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click();
 })
 
 Cypress.Commands.add('navigateToReportPage', (pageName, url)=>{
-  cy.get('.menu-toggle > .fa').forceClick();
-  cy.get('[data-name="Reports"]').forceClick();
-  cy.get('.menu-toggle').forceClick();
-  cy.get('a').contains(pageName).forceClick();
+  cy.get('.menu-toggle > .fa').click();
+  cy.get('[data-name="Reports"]').click();
+  cy.get('.menu-toggle').click();
+  cy.get('a').contains(pageName).click();
   cy.url().should('include', url)
 })
 
-Cypress.Commands.add('forceClick', {prevSubject: 'element'}, (subject, options) => {
-  cy.wrap(subject).click({force: true})
-});
+Cypress.Commands.overwrite('click',(originalFn, subject, options)=>{
+  return originalFn(subject, options,{force:true})
+})
+
+Cypress.Commands.overwrite('select',(originalFn,subject, options)=>{
+  return originalFn(subject, options,{force:true})
+})
 //
 //
 // -- This is a dual command --
