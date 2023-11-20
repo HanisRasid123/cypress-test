@@ -882,7 +882,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('fpSignOutRegister', ()=>{
+  it('fpSignOutRegister', ()=>{
     cy.navigateToReportPage('Fractionated Product Sign Out Register', '/report/fractionated-product-sign-out-register')
     cy.downloadAndValidateReports(data.fpSignOutRegisterPrefix)
     /* ==== Generated with Cypress Studio ==== */
@@ -906,9 +906,21 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  // it.only('fpStockLevelReport', ()=>{
-  //   cy.navigateToReportPage('Fractionated Product Stock Level Report', 'report/fractionated-product-stock-level-report')
-  // })
+  it.only('fpStockLevelReport', ()=>{
+    cy.navigateToReportPage('Fractionated Product Stock Level Report', 'report/fractionated-product-stock-level-report')
+    cy.downloadAndValidateReports(data.fpStockLevelReportPrefix)
+    /* ==== Generated with Cypress Studio ==== */
+
+    //search
+    cy.get(':nth-child(5) > :nth-child(1) > .control > .select > select').select('8');
+    cy.get(':nth-child(5) > :nth-child(2) > .control > .select > select').select('97');
+    cy.get('#gtinId_00642621008784 > :nth-child(1) > .header > :nth-child(3) > .counter').click();
+    cy.get('#gtinId_09347408001453 > :nth-child(1) > .header > .pointer > :nth-child(1)').click();
+    cy.get('#gtinId_19347408001009 > :nth-child(1) > .header > .pointer > .counter').click();
+    cy.get('tr').contains('Akshay location').as('location').scrollIntoView()
+    cy.get('@location').should('exist').and('have.length', 1)
+    /* ==== End Cypress Studio ==== */
+  })
 
   // it.only('fpTransactionsSummaryReport', ()=>{
   //   cy.navigateToReportPage('Fractionated Product Transactions Report (Summary)','report/fractionated-product-transaction-report')

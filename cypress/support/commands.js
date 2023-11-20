@@ -61,8 +61,7 @@ Cypress.Commands.add('colourCheck', { prevSubject: 'element'}, (subject, r, g, b
 
 
 Cypress.Commands.add('downloadAndValidateReports', (prefix)=>{
-  cy.get('tbody').should('be.visible')
-  cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click();
+  cy.get('.collapse-trigger > .print-report-button').click();
 
   cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
   cy.get('.download-xlxs-button').click();
@@ -79,7 +78,7 @@ Cypress.Commands.add('downloadAndValidateReports', (prefix)=>{
   cy.wait('@download3')
   cy.download(data.downloadPath, prefix, ".pdf").should('exist')
 
-  cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click();
+  cy.get('.collapse-trigger > .print-report-button').click();
 })
 
 Cypress.Commands.add('navigateToReportPage', (pageName, url)=>{
