@@ -862,7 +862,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('bloodAnalyticReport', ()=>{
+  it('bloodAnalyticReport', ()=>{
     cy.navigateToReportPage('Blood Analytic Report', '/report/blood-analytic-report')
 
     cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download')
@@ -882,9 +882,29 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  // it.only('fpSignOutRegister', ()=>{
-  //   cy.navigateToReportPage('Fractionated Product Sign Out Register', '/report/fractionated-product-sign-out-register')
-  // })
+  it.only('fpSignOutRegister', ()=>{
+    cy.navigateToReportPage('Fractionated Product Sign Out Register', '/report/fractionated-product-sign-out-register')
+    cy.downloadAndValidateReports(data.fpSignOutRegisterPrefix)
+    /* ==== Generated with Cypress Studio ==== */
+
+    //archive
+    cy.get('.archive-col > .collapse-trigger > .print-report-button').click();
+    cy.get(':nth-child(3) > :nth-child(3) > .control > .select > select').select('2023');
+    cy.get(':nth-child(3) > :nth-child(2) > .control > .select > select').select('10');
+    cy.get(':nth-child(4) > :nth-child(2) > .control > .select > select').select('10');
+    cy.get(':nth-child(4) > :nth-child(3) > .control > .select > select').select('2023');
+    cy.get('.archive-data-button').click();
+    cy.get('.download-archive-data-button').click();
+
+    //search filters
+    cy.get('.fix-width > :nth-child(1) > .field > .control > .select > select').select('8');
+    cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select('55');
+    cy.get('tbody').contains('QA_Test_Location').as('location').scrollIntoView()
+    cy.get('@location').should('not.exist')
+    cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select('64');
+    cy.get('@location').should('be.visible')
+    /* ==== End Cypress Studio ==== */
+  })
 
   // it.only('fpStockLevelReport', ()=>{
   //   cy.navigateToReportPage('Fractionated Product Stock Level Report', 'report/fractionated-product-stock-level-report')

@@ -49,5 +49,6 @@
   "bloodTransactionsReportArchivePrefix": "ARCHIVE_BLOOD_TRANSACTIONS_REPORT(SUMMARY)_",
   "bloodTransactionsHistoryReportXLSXPrefix": "Blood_Transactions_History_Report_",
   "bloodTransactionsHistoryReportPrefix": "Blood_Transaction_History_Report_",
-  "bloodAnalyticsReportPrefix": "Blood_Analytics_Report_"
+  "bloodAnalyticsReportPrefix": "Blood_Analytics_Report_",
+  "fpSignOutRegisterPrefix": "Fractionated_Product_Signout_Register_"
 }
