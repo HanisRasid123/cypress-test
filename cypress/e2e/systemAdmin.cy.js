@@ -988,7 +988,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('webAuditReport', ()=>{
+  it('webAuditReport', ()=>{
     cy.navigateToReportPage('Web Audit Report', '/report/web-audit-report')
     
     //search
@@ -1015,7 +1015,7 @@ describe('System Admin', () => {
 
     cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
     cy.get('.download-pdf-button').click();
-    
+
     //3 secs for every 1000 rows of data
     cy.wait('@download3')
     cy.download(data.downloadPath, data.webAuditReportPrefix, ".pdf").should('exist')
@@ -1026,10 +1026,38 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  // it.only('appAuditReport', ()=>{
-  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(3)')
-  // })
+  it.only('appAuditReport', ()=>{
+    cy.navigateToReportPage('App Audit Report', '/report/app-audit-report')
+    /* ==== Generated with Cypress Studio ==== */
 
+    //search filters
+    cy.get(':nth-child(1) > .field > .control > .select > select').select('8');
+    cy.get('#override > :nth-child(2) > .field > .control > .select > select').select('64');
+    cy.get('label').contains('Date Range').siblings().children().children().select('2')
+    cy.get(':nth-child(6) > .field > .control > .select > select').select('1');
+    cy.get('tbody').contains('QA_Test_Location').should('be.visible')
+
+    //download
+    cy.get('.collapse-trigger > .print-report-button').click();
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
+    cy.get('.download-xlxs-button').click();
+    cy.wait('@download1')
+    cy.download(data.downloadPath, data.appAuditReportPrefix, ".xlsx").should('exist')
+  
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
+    cy.get('.download-csv-button').click();
+    cy.wait('@download2')
+    cy.download(data.downloadPath, data.appAuditReportPrefix, ".csv").should('exist')
+  
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
+    cy.get('.download-pdf-button').click();
+    cy.wait('@download3')
+    cy.download(data.downloadPath, data.appAuditReportPrefix, ".pdf").should('exist')
+  
+    cy.get('.collapse-trigger > .print-report-button').click();
+    /* ==== End Cypress Studio ==== */
+  })
   // it.only('stockAuditReport', ()=>{
   //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(5)')
   // })

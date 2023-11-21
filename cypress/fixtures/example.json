@@ -55,5 +55,6 @@
   "fpTransactionsReportPrefix":"Fractionated_Product_Transactions_Report_",
   "fpTransactionsHistoryReportPrefix":"Fractionated_Product_Transaction_History_Report_",
   "fpStockReconciliationReportPrefix":"Stock_Reconciliation_Report_",
-  "webAuditReportPrefix": "Web_Audit_Report_"
+  "webAuditReportPrefix": "Web_Audit_Report_",
+  "appAuditReportPrefix": "App_Audit_Report_"
 }
