@@ -1069,7 +1069,7 @@ describe('System Admin', () => {
   })
 
   //TODO: no data
-  it.only('slaAuditReport', ()=>{
+  it('slaAuditReport', ()=>{
     cy.navigateToReportPage('SLA Audit Report', '/report/sla-audit-report')
     /* ==== Generated with Cypress Studio ==== */
     cy.get('.is-grouped-multiline > .field > .control > .select > select').select('8');
@@ -1077,7 +1077,12 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  // it.only('timeTrackingStatusReport', ()=>{
-  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(9)')
-  // })
+  it.only('timeTrackingStatusReport', ()=>{
+    cy.navigateToReportPage('Time Tracking Status Report', 'report/time-tracking-status-report')
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select('8');
+    cy.get(':nth-child(4) > .field > .control > .select > select').select('8');
+    cy.get('tbody').contains('Test').should('be.visible')
+    /* ==== End Cypress Studio ==== */
+  })
 })
