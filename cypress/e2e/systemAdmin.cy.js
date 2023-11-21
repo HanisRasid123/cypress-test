@@ -99,7 +99,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('userRolePermissions', function() {
+  it.only('userRolePermissions', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate to userRolePermissions
@@ -114,6 +114,7 @@ describe('System Admin', () => {
 
     //create user role
     cy.get('.create-button-margin').click();
+    cy.url().should('include', 'system-admin/user/user-role-process')
     cy.get('.input').type(data.userRole);
     cy.get('select').select('1');
     cy.get(':nth-child(2) > .panel > .panel-block > .field > .control > .select > select').select('1');
@@ -1077,7 +1078,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('timeTrackingStatusReport', ()=>{
+  it('timeTrackingStatusReport', ()=>{
     cy.navigateToReportPage('Time Tracking Status Report', 'report/time-tracking-status-report')
     /* ==== Generated with Cypress Studio ==== */
     cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select('8');
