@@ -1059,7 +1059,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('stockAuditReport', ()=>{
+  it('stockAuditReport', ()=>{
     cy.navigateToReportPage('Stock Audit Report', '/report/stock-audit-report')
     /* ==== Generated with Cypress Studio ==== */
     cy.get('.flex > :nth-child(1) > :nth-child(3) > .field > .control > .select > select').select('8');
@@ -1068,9 +1068,14 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  // it.only('slaAuditReport', ()=>{
-  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(7)')
-  // })
+  //TODO: no data
+  it.only('slaAuditReport', ()=>{
+    cy.navigateToReportPage('SLA Audit Report', '/report/sla-audit-report')
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('.is-grouped-multiline > .field > .control > .select > select').select('8');
+    cy.get('label').contains('Date Range').siblings().children().children().select('1');
+    /* ==== End Cypress Studio ==== */
+  })
 
   // it.only('timeTrackingStatusReport', ()=>{
   //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(9)')
