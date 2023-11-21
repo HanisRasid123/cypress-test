@@ -100,6 +100,10 @@ Cypress.Commands.overwrite('select',(originalFn,subject, options)=>{
 Cypress.Commands.overwrite('type',(originalFn,subject, options)=>{
   return originalFn(subject, options,{force:true})
 })
+
+Cypress.Commands.overwrite('check',(originalFn,subject, options)=>{
+  return originalFn(subject, options,{force:true})
+})
 //
 //
 // -- This is a dual command --

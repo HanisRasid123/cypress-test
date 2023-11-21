@@ -99,7 +99,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('userRolePermissions', function() {
+  it('userRolePermissions', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate to userRolePermissions
@@ -423,7 +423,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('locationSettings', function() {
+  it.only('locationSettings', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigation
