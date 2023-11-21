@@ -423,7 +423,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('locationSettings', function() {
+  it('locationSettings', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigation
@@ -463,7 +463,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('clinicalAreaSettings', function() {
+  it.only('clinicalAreaSettings', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -492,7 +492,7 @@ describe('System Admin', () => {
 
     //deactivate setting
     cy.get('[title="Activate/Deactivate Setting"] > .fa').click();
-    cy.get('.modal-card-foot > .button').click();
+    cy.get('.modal-card > .modal-card-foot > .button[type="submit"]').click();
     cy.get('.status.deactive').colourCheck(243, 146, 55);
     /* ==== End Cypress Studio ==== */
   });
