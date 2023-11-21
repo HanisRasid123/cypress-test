@@ -557,7 +557,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('masterFiles', function() {
+  it('masterFiles', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -696,14 +696,31 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('bloodSignOutRegister', function() {
+  it.only('bloodSignOutRegister', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
     cy.navigateToReportPage("Sign Out Register", "/report/sign-out-register")
 
-    //download
-    cy.downloadAndValidateReports(data.signOutRegisterFilePrefix);
+    //download;
+    cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click();
+
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
+    cy.get('.download-xlxs-button').click();
+    cy.wait('@download1')
+    cy.download(data.downloadPath, data.signOutRegisterFilePrefix, ".0.xlsx").should('exist')
+  
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
+    cy.get('.download-csv-button').click();
+    cy.wait('@download2')
+    cy.download(data.downloadPath, data.signOutRegisterFilePrefix, ".0.csv").should('exist')
+  
+    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
+    cy.get('.download-pdf-button').click();
+    cy.wait('@download3')
+    cy.download(data.downloadPath, data.signOutRegisterFilePrefix, ".pdf").should('exist')
+  
+    cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click();
     
     //archive TODO: can't test bc no data error and env var
     cy.get('.archive-col > .collapse-trigger > .print-report-button').click();
