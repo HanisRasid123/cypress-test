@@ -1026,7 +1026,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('appAuditReport', ()=>{
+  it('appAuditReport', ()=>{
     cy.navigateToReportPage('App Audit Report', '/report/app-audit-report')
     /* ==== Generated with Cypress Studio ==== */
 
@@ -1058,9 +1058,15 @@ describe('System Admin', () => {
     cy.get('.collapse-trigger > .print-report-button').click();
     /* ==== End Cypress Studio ==== */
   })
-  // it.only('stockAuditReport', ()=>{
-  //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(5)')
-  // })
+
+  it.only('stockAuditReport', ()=>{
+    cy.navigateToReportPage('Stock Audit Report', '/report/stock-audit-report')
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('.flex > :nth-child(1) > :nth-child(3) > .field > .control > .select > select').select('8');
+    cy.get(':nth-child(1) > :nth-child(1) > .field > .control > .select > select').select('8');
+    cy.get('tbody').contains('Test').should('be.visible')
+    /* ==== End Cypress Studio ==== */
+  })
 
   // it.only('slaAuditReport', ()=>{
   //   cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > :nth-child(7)')
