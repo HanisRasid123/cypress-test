@@ -31,13 +31,23 @@ Cypress.Commands.add('download',(downloadPath, filePrefix, fileType) => {
     var fileTs = 0;
     var files = [];
     var filename = "";
-    if (filePrefix.includes("Fractionated_Product") || filePrefix.includes("Master_File")) {
+    if (filePrefix.includes("Fractionated_Product_Master_File") || filePrefix.includes("Master_File_CODABAR")) {
+      cy.wait(3000)
       cy.task('readFileMaybe', downloadPath)
       .then(returnArray =>{
         files = returnArray.filter((i)=>{
           return i.includes(filePrefix)
         })
-        filename = downloadPath + files[files.length - 1]
+
+        if (files.length == 1) {
+          cy.log("1 FILE", files.length)
+          filename = downloadPath + files[0]
+        }
+        else {
+          cy.log("MORE THAN 1 FILE", files.length)
+          filename = downloadPath + files[files.length - 1]
+        }
+
       })
       .then(()=>{
         return cy.readFile(filename)

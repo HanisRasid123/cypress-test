@@ -463,7 +463,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('clinicalAreaSettings', function() {
+  it('clinicalAreaSettings', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -557,7 +557,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('masterFiles', function() {
+  it.only('masterFiles', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -572,7 +572,7 @@ describe('System Admin', () => {
     cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(1)').click();
     cy.url().should('include','system-product/upload-blood-component-master-file')
     cy.get('.placeholder > .fa').click();
-    cy.get('#userFile').selectFile(data.bcMasterFilePath, {});
+    cy.get('#userFile').selectFile(data.bcMasterFilePath, {force:true});
     cy.get('.create-button').click();
     cy.contains('Results').should('be.visible')
     cy.get('.back').click();
@@ -588,7 +588,7 @@ describe('System Admin', () => {
     cy.get(':nth-child(3) > .configuration__content-info > .configuration__list > :nth-child(5)').click();
     cy.url().should('include','system-product/upload-fractionated-product-master-file')
     cy.get('.placeholder').click();
-    cy.get('#userFile').selectFile(data.fpMasterFilePath, {});
+    cy.get('#userFile').selectFile(data.fpMasterFilePath, {force:true});
     cy.get('.create-button').click();
     cy.contains('Results').should('be.visible')
     cy.get('.back > p').click();
