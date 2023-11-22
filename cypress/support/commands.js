@@ -31,7 +31,7 @@ Cypress.Commands.add('download',(downloadPath, filePrefix, fileType) => {
     var fileTs = 0;
     var files = [];
     var filename = "";
-    if (filePrefix.includes("Fractionated_Product_Master_File") || filePrefix.includes("Master_File_CODABAR")) {
+    if (filePrefix.includes("Fractionated_Product_") || filePrefix.includes("Master_File_CODABAR")) {
       cy.wait(3000)
       cy.task('readFileMaybe', downloadPath)
       .then(returnArray =>{
@@ -107,9 +107,9 @@ Cypress.Commands.overwrite('select',(originalFn,subject, options)=>{
   return originalFn(subject, options,{force:true})
 })
 
-Cypress.Commands.overwrite('type',(originalFn,subject, options)=>{
-  return originalFn(subject, options,{force:true})
-})
+// Cypress.Commands.overwrite('type',(originalFn,subject, options)=>{
+//   return originalFn(subject, options,{force:true})
+// })
 
 Cypress.Commands.overwrite('check',(originalFn,subject, options)=>{
   return originalFn(subject, options,{force:true})

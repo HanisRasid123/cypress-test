@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "cypress:run": "cypress run",
+    "cypress:run": "cypress run --browser chrome",
     "cypress:open": "cypress open"
   },
   "author": "Hanis Rasid",
