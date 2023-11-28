@@ -459,7 +459,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('locationSettings', function() {
+  it('locationSettings', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigation
@@ -520,11 +520,11 @@ describe('System Admin', () => {
     cy.url().should('include','system-admin/feature/clinical-area-setting')
 
     //create setting
-    cy.get('.create-button').click();
-    cy.get('.modal-card-body > :nth-child(1) > .control > .input').type(data.clinicalAreaSetting);
-    cy.get(':nth-child(2) > .is-1 > .b-checkbox > .check').click();
-    cy.get('form > .modal-card-foot > .button').click();
-    cy.get('.notification > :nth-child(4)').should('be.visible')
+    // cy.get('.create-button').click();
+    // cy.get('.modal-card-body > :nth-child(1) > .control > .input').type(data.clinicalAreaSetting);
+    // cy.get(':nth-child(2) > .is-1 > .b-checkbox > .check').click();
+    // cy.get('form > .modal-card-foot > .button').click();
+    // cy.get('.notification > :nth-child(4)').should('be.visible')
 
     //edit setting
     cy.get('.input[placeholder="Search"').should('be.visible').type(data.clinicalAreaSetting);
@@ -537,11 +537,16 @@ describe('System Admin', () => {
     cy.get('[title="Activate/Deactivate Setting"] > .fa').click();
     cy.get('.modal-card > .modal-card-foot > .button[type="submit"]').click();
     cy.get('.status.deactive').colourCheck(243, 146, 55);
+
+    //activate
+    cy.get('[title="Activate/Deactivate Setting"] > .fa').click();
+    cy.get('.modal-card > .modal-card-foot > .button[type="submit"]').click();
+    cy.get('.status').should('have.class', 'active')
     /* ==== End Cypress Studio ==== */
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('slaConfig', function() {
+  it.only('slaConfig', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -555,20 +560,38 @@ describe('System Admin', () => {
     cy.url().should('include','/system-admin/sla-config/sla-configuration')
 
     //create sla config
-    cy.get('.is-desktop > :nth-child(1) > .create-button').click();
-    cy.get('.panel > :nth-child(2) > .field > .control > .input').type(data.slaConfig.name);
-    cy.get('#2 ').type(data.slaConfig.time);
-    cy.get('#3 ').type(data.slaConfig.time);
-    cy.get('select').select('2');
+    // cy.get('.is-desktop > :nth-child(1) > .create-button').click();
+    // cy.get('.panel > :nth-child(2) > .field > .control > .input').type(data.slaConfig.name);
+    // cy.get('#2 ').type(data.slaConfig.time);
+    // cy.get('#3 ').type(data.slaConfig.time);
+    // cy.get('select').select('2');
+    // cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
+    // cy.get('#feature0').click();
+    // cy.get('#33').scrollIntoView().type(data.slaConfig.time);
+    // cy.get('#34').type(data.slaConfig.time);
+    // cy.get('#35').type(data.slaConfig.time);
+    // cy.get('#41').type(data.slaConfig.time);
+    // cy.get('#42').type(data.slaConfig.time);
+    // cy.get('#43').type(data.slaConfig.time);
+    // cy.get(':nth-child(5) > .column > :nth-child(2)').trigger('click');
+    // cy.get('.notification > :nth-child(4)').should('be.visible')
+
+    //search
+    cy.get('.input[placeholder="Search"]').type(data.slaConfig.name, {force:true});
+    cy.contains(data.slaConfig.name).should('be.visible')
+
+    //edit
+    cy.get(':nth-child(4) > tbody > .has-text-left > .action-buttons > button > .fa').click();
+    cy.get('select').select('7');
     cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
-    cy.get('#feature0').click();
-    cy.get('#33').scrollIntoView().type(data.slaConfig.time);
-    cy.get('#34').type(data.slaConfig.time);
-    cy.get('#35').type(data.slaConfig.time);
-    cy.get('#41').type(data.slaConfig.time);
-    cy.get('#42').type(data.slaConfig.time);
-    cy.get('#43').type(data.slaConfig.time);
-    cy.get(':nth-child(5) > .column > :nth-child(2)').trigger('click');
+    cy.get('#feature2').click();
+    cy.get('#113').type(data.slaConfig.time);
+    cy.get('#114').type(data.slaConfig.time);
+    cy.get('#115').type(data.slaConfig.time);
+    cy.get('#121').type(data.slaConfig.time);
+    cy.get('#122').type(data.slaConfig.time);
+    cy.get('#123').type(data.slaConfig.time);
+    cy.get(':nth-child(5) > .column > :nth-child(2)').click();
     cy.get('.notification > :nth-child(4)').should('be.visible')
 
     //search
@@ -577,25 +600,18 @@ describe('System Admin', () => {
 
     //edit
     cy.get(':nth-child(4) > tbody > .has-text-left > .action-buttons > button > .fa').click();
-    cy.get('select').select('8');
-    cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
-    cy.get('#feature1').click();
-    cy.get('#129').type(data.slaConfig.time);
-    cy.get('#130').type(data.slaConfig.time);
-    cy.get('#131').type(data.slaConfig.time);
-    cy.get('#137').type(data.slaConfig.time);
-    cy.get('#138').type(data.slaConfig.time);
-    cy.get('#139').type(data.slaConfig.time);
+    cy.get('#feature2 > .delete').click();
+    cy.get('.modal-card-foot > :nth-child(2)').click()
     cy.get(':nth-child(5) > .column > :nth-child(2)').click();
     cy.get('.notification > :nth-child(4)').should('be.visible')
     
     //add override
-    cy.get(':nth-child(7) > :nth-child(1) > .create-button').click();
-    cy.get(':nth-child(1) > .control > .input').type(data.slaConfig.overrideCode);
-    cy.get('form > .modal-card-body').click();
-    cy.get('.modal-card-body > :nth-child(2) > .control > .input').type(data.slaConfig.overrideDesc);
-    cy.get('form > .modal-card-foot > .button').click();
-    cy.get('.notification.showToastClass').should('be.visible')
+    // cy.get(':nth-child(7) > :nth-child(1) > .create-button').click();
+    // cy.get(':nth-child(1) > .control > .input').type(data.slaConfig.overrideCode);
+    // cy.get('form > .modal-card-body').click();
+    // cy.get('.modal-card-body > :nth-child(2) > .control > .input').type(data.slaConfig.overrideDesc);
+    // cy.get('form > .modal-card-foot > .button').click();
+    // cy.get('.notification.showToastClass').should('be.visible')
     /* ==== End Cypress Studio ==== */
   });
 

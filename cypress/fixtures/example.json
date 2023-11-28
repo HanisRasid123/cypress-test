@@ -32,9 +32,9 @@
   "downloadPath": "cypress/downloads/",
   "fpTrackingId": "FPAAAY6633",
   "locationSetting":"QA_Test_Location",
-  "clinicalAreaSetting": "TestAreaSetting",
+  "clinicalAreaSetting": "Test-CA",
   "slaConfig":{
-    "name": "slaTestConfig",
+    "name": "Blood SLA",
     "time": 10,
     "overrideCode": "TEST",
     "overrideDesc": "This is a test description."
