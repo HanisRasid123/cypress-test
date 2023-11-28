@@ -100,7 +100,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('userRolePermissions', function() {
+  it('userRolePermissions', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate to userRolePermissions
@@ -175,19 +175,17 @@ describe('System Admin', () => {
     cy.url().should('include','/system-admin/user/user-groups');
 
     //create user group
-    cy.get('.create-button').click();
-    cy.url().should('include','/system-admin/user/user-group-process');
-    cy.get('.input').type(data.userGroups, {});
-    cy.get('#checkAll').check({force: true});
-    cy.get('.has-text-center > .create-button').click();
-    cy.get('.has-text-right > :nth-child(2)').click();
-    cy.url().should('include','/system-admin/user/user-groups');
+    // cy.get('.create-button').click();
+    // cy.url().should('include','/system-admin/user/user-group-process');
+    // cy.get('.input').type(data.userGroups, {});
+    // cy.get('#checkAll').check({force: true});
+    // cy.get('.has-text-center > .create-button').click();
+    // cy.get('.has-text-right > :nth-child(2)').click();
+    // cy.url().should('include','/system-admin/user/user-groups');
 
 
     //search 
-    cy.get('.input').type(data.userGroups, {});
-    // cy.get('.has-text-right > :nth-child(2)').click();
-    // cy.get('.input').type(data.userGroups, {force: true});
+    cy.get('.input').type(data.userGroups, {force:true});
     cy.get('tbody > tr > :nth-child(1) > .custom-checkbox > .checkmark').click({force: true});
 
     //edit
@@ -208,11 +206,17 @@ describe('System Admin', () => {
     cy.get('.modal-card-foot > :nth-child(2)').click();
     cy.get('.status.deactive').colourCheck(243, 146, 55);
     /* ==== End Cypress Studio ==== */
+    /* ==== Generated with Cypress Studio ==== */
+    cy.get('.activate-deactivate-admin > .control > .select > select').select('1');
+    cy.get('.with-form > .buttons > .is-dark > .button').click();
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get('.status').should('have.class', 'active');
+    /* ==== End Cypress Studio ==== */
   });
 
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('locationGroups', function() {
+  it.only('locationGroups', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -226,18 +230,18 @@ describe('System Admin', () => {
     cy.url().should('include','/system-admin/user/location-groups')
 
     //create location group
-    cy.get('.create-button').trigger('click');
-    cy.url().should('include','/system-admin/user/location-group-process')
-    cy.get('.input').type('TestLocationGroup');
-    cy.get('select').select('1')
-    cy.get(':nth-child(2) > .field > .control > .select > select').select('2');
-    cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
-    cy.get('#feature0').should('be.visible')
-    cy.get(':nth-child(5) > .column > :nth-child(2)').contains('Create').trigger('click');
-    cy.url().should('include','/system-admin/user/location-groups')
+    // cy.get('.create-button').trigger('click');
+    // cy.url().should('include','/system-admin/user/location-group-process')
+    // cy.get('.input').type('TestLocationGroup');
+    // cy.get('select').select('1')
+    // cy.get(':nth-child(2) > .field > .control > .select > select').select('2');
+    // cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
+    // cy.get('#feature0').should('be.visible')
+    // cy.get(':nth-child(5) > .column > :nth-child(2)').contains('Create').trigger('click');
+    // cy.url().should('include','/system-admin/user/location-groups')
 
     //search 
-    cy.get('.input').type('TestLocationGroup');
+    cy.get('.input').type(data.locationGroup);
     cy.contains(data.locationGroup)
     cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
 
@@ -250,7 +254,21 @@ describe('System Admin', () => {
     cy.url().should('include','/system-admin/user/location-groups')
 
     //search
-    cy.get('.input').type('TestLocationGroup');
+    cy.get('.input').type(data.locationGroup);
+    cy.contains(data.locationGroup)
+    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
+
+    //edit
+    cy.get('[data-label="Edit Location Group"] > .button > .fa').click();
+    cy.url().should('include', '/system-admin/user/location-group-process')
+    cy.wait(1000)
+    cy.get('#feature1 > .delete').as('deleteLocation').trigger('click');
+    cy.get('@deleteLocation').should('not.exist')
+    cy.get(':nth-child(5) > .column > :nth-child(2)').click();
+    cy.url().should('include','/system-admin/user/location-groups')
+
+    //search
+    cy.get('.input').type(data.locationGroup);
     cy.contains(data.locationGroup)
     cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
 
@@ -259,6 +277,13 @@ describe('System Admin', () => {
     cy.get('.with-form > .buttons > .is-dark > .button > .fa').click();
     cy.get('.modal-card-foot > :nth-child(2)').click();
     cy.get('.status.deactive').colourCheck(243, 146, 55);
+
+    //activate
+    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
+    cy.get('.activate-deactivate-admin > .control > .select > select').select('1');
+    cy.get('.with-form > .buttons > .is-dark > .button > .fa').click();
+    cy.get('.modal-card-foot > :nth-child(2)').click();
+    cy.get('.status').should('have.class', 'active');
     /* ==== End Cypress Studio ==== */
   });
 
