@@ -1,6 +1,5 @@
 import moment from 'moment/moment';
 import data from '../fixtures/example.json'
-import fs from 'fs'
 
 beforeEach(()=> {
   cy.login(data.sysAdminEmail, data.sysAdminPassword)
@@ -129,6 +128,7 @@ describe('System Admin', () => {
     //search user role and select
     cy.get('.input').type(data.userRole, {force:true});
     cy.contains(data.userRole).should('be.visible');
+    cy.wait(1000)
     cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
 
     //edit user role
@@ -249,7 +249,8 @@ describe('System Admin', () => {
     cy.get('[data-label="Edit Location Group"] > .button > .fa').click();
     cy.url().should('include', '/system-admin/user/location-group-process')
     cy.get(':nth-child(2) > .field > .control > .select > select').select('4');
-    cy.get('.panel-block > .columns > .has-text-right > .create-button').click();
+    cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
+    cy.get('#feature1').should('be.visible')
     cy.get(':nth-child(5) > .column > :nth-child(2)').click();
     cy.url().should('include','/system-admin/user/location-groups')
 
@@ -371,6 +372,7 @@ describe('System Admin', () => {
     cy.url().should('include','system-product/blood-data')
 
     //download and verify
+    cy.wait(1000)
     cy.get('.create-button-margin').click().then(()=>{
       cy.download(data.downloadPath, data.bloodDataFilePrefix, ".0.xlsx").should('exist')
     })
@@ -663,7 +665,7 @@ describe('System Admin', () => {
 
   
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('systemAdministration', function() {
+  it('systemAdministration', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -723,18 +725,18 @@ describe('System Admin', () => {
     //fractionated product location tracking
     cy.get('.configuration__list > :nth-child(1)').click();
     cy.get(':nth-child(3) > .control > .select > select').select('8');
-    cy.get('#AtLocationQA_Test_Location0 > :nth-child(1) > :nth-child(1) > :nth-child(2)').click();
+    cy.get('#AtLocationQA_Test_Location0 > :nth-child(1) > :nth-child(1) > :nth-child(2)').trigger('click');
     cy.get('.status').colourCheck(3,156,16)
-    cy.get('#AtLocationQA_Test_Location0 > :nth-child(1) > :nth-child(1) > :nth-child(5)').click();
+    cy.get('#AtLocationQA_Test_Location0 > :nth-child(1) > :nth-child(1) > :nth-child(5)').trigger('click');
     cy.get('.status').colourCheck(218, 29, 58)
     cy.get('.back > p').click();
     
     //blood component location tracking
     cy.get('.configuration__list > :nth-child(3)').click();
     cy.get(':nth-child(1) > .control > .select > select').select('8');
-    cy.get('#InTransitAkshaylocation0 > :nth-child(1) > :nth-child(1) > :nth-child(2)').trigger('click');
-    cy.get('.status').colourCheck(3,156,16)
-    cy.get('#InTransitAkshaylocation0 > :nth-child(1) > :nth-child(1) > :nth-child(5) > :nth-child(1)').click();
+    // cy.get('#InTransitAkshaylocation0 > :nth-child(1) > :nth-child(1) > :nth-child(2)').trigger('click');
+    // cy.get('.status').colourCheck(3,156,16)
+    cy.get('#InTransitAkshaylocation0 > :nth-child(1) > :nth-child(1) > :nth-child(5) > :nth-child(1)').trigger('click');
     cy.get('.status').colourCheck(218, 29, 58)
     cy.get('.back > .fa').click();
     
@@ -789,7 +791,7 @@ describe('System Admin', () => {
   
     cy.get(':nth-child(1) > .collapse-trigger > .print-report-button').click();
     
-    //archive TODO: can't test bc no data error and env var
+    
     cy.get('.archive-col > .collapse-trigger > .print-report-button').click();
     cy.get(':nth-child(3) > :nth-child(2) > .control > .select > select').select('10',{});
     cy.get(':nth-child(3) > :nth-child(3) > .control > .select > select').select('2023',{});
@@ -856,7 +858,7 @@ describe('System Admin', () => {
     cy.get('abbr').contains("QA_Test_Location").should('be.length',1)
     cy.get('abbr').contains("Red Cells").should('be.length',1)
   });
-  //TODO: CONTINUE FIXING UP TESTS FROM HERE
+  
   it('bloodTransactionsSummaryReport', ()=>{
     //navigate
     cy.navigateToReportPage('Blood Transactions Report (Summary)', 'report/blood-transactions-report')

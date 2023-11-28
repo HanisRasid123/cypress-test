@@ -9,7 +9,7 @@
   "phoneNo": "123456789",
   "contactEmail": "tester123@test.com",
   "note": "This is a test.",
-  "host": "http://localhost:3000",
+  "host": "https://ecs-v2-sit.controlpoint.healthrfid.com",
   "userFName": "John",
   "userLName": "Grey",
   "userFNameAdmin": "Test",
