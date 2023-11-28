@@ -216,7 +216,7 @@ describe('System Admin', () => {
 
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('locationGroups', function() {
+  it('locationGroups', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -459,7 +459,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('locationSettings', function() {
+  it.only('locationSettings', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigation
@@ -473,30 +473,35 @@ describe('System Admin', () => {
     cy.url().should('include','/system-admin/locations/location-settings')
 
     //create location setting
-    cy.wait(2000)
-    cy.get('.create-button').click().then(()=>{
-      cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(1) > .control > .input').type(data.locationSetting);
-    })
-    cy.get(':nth-child(3) > .control > .select > #select_status').select('4');
-    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(1) > .b-checkbox > .control-label').click();
-    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(1) > .b-checkbox > input').check();
-    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(14) > .b-checkbox > .control-label').click();
-    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(14) > .b-checkbox > input').check();
-    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(12) > .b-checkbox > .check').click();
-    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(12) > .b-checkbox > input').check();
-    cy.wait(150)
-    cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-foot > .button').as('create').should('be.visible')
-    cy.get('@create').trigger('click');
+    // cy.wait(2000)
+    // cy.get('.create-button').click().then(()=>{
+    //   cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(1) > .control > .input').type(data.locationSetting);
+    // })
+    // cy.get(':nth-child(3) > .control > .select > #select_status').select('4');
+    // cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(1) > .b-checkbox > .control-label').click();
+    // cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(1) > .b-checkbox > input').check();
+    // cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(14) > .b-checkbox > .control-label').click();
+    // cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(14) > .b-checkbox > input').check();
+    // cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(12) > .b-checkbox > .check').click();
+    // cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-body > :nth-child(4) > .my-level > .my-level-item > .columns > :nth-child(12) > .b-checkbox > input').check();
+    // cy.wait(150)
+    // cy.get('.create-location-settings-modal > .modal > .modal-card > form > .modal-card-foot > .button').as('create').should('be.visible')
+    // cy.get('@create').trigger('click');
 
 
     //search
-    cy.get(':nth-child(3) > .field > .control > .input').type(data.locationSetting);
+    cy.get(':nth-child(3) > .field > .control > .input').type(data.locationSetting, {force:true});
     cy.contains(data.locationSetting).should('be.visible')
 
     //deactivate
-    cy.get('[title="Activate/Deactivate Location"] > .fa').click();
+    cy.get(':nth-child(1) > .action-buttons > [title="Activate/Deactivate Location"] > .fa').click();
     cy.get('.modal-card > .modal-card-foot > .button').click();
     cy.get('.status.deactive').colourCheck(243, 146, 55);
+
+    //activate
+    cy.get(':nth-child(1) > .action-buttons > [title="Activate/Deactivate Location"] > .fa').click();
+    cy.get('.modal-card > .modal-card-foot > .button').click();
+    cy.get('.status').should('have.class', 'active')
     /* ==== End Cypress Studio ==== */
   });
 

@@ -31,7 +31,7 @@
   "fractionatedDataFilePrefix": "Fractionated_Product_Data_",
   "downloadPath": "cypress/downloads/",
   "fpTrackingId": "FPAAAY6633",
-  "locationSetting":"TestLocationSetting",
+  "locationSetting":"QA_Test_Location",
   "clinicalAreaSetting": "TestAreaSetting",
   "slaConfig":{
     "name": "slaTestConfig",
