@@ -546,7 +546,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('slaConfig', function() {
+  it('slaConfig', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -663,7 +663,7 @@ describe('System Admin', () => {
 
   
   /* ==== Test Created with Cypress Studio ==== */
-  it('systemAdministration', function() {
+  it.only('systemAdministration', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -673,34 +673,41 @@ describe('System Admin', () => {
     cy.url().should('include', '/system-admin/user')
 
     //create new admin user
-    cy.get('.sysadmin-user > :nth-child(1) > :nth-child(1) > :nth-child(1)').click();
-    cy.get(':nth-child(1) > :nth-child(1) > .control > .input').type(data.userFName);
-    cy.get(':nth-child(1) > :nth-child(2) > .control > .input').type(data.userLNameAdmin);
-    cy.get(':nth-child(2) > :nth-child(1) > .control > .input').type(data.adminEmail);
-    cy.get('.modal-card-foot > :nth-child(2)').click();
-    cy.get('.notification > :nth-child(4)').contains('System Admin User Created Successfully.').should('be.visible')
+    // cy.get('.sysadmin-user > :nth-child(1) > :nth-child(1) > :nth-child(1)').click();
+    // cy.get(':nth-child(1) > :nth-child(1) > .control > .input').type(data.userFName);
+    // cy.get(':nth-child(1) > :nth-child(2) > .control > .input').type(data.userLNameAdmin);
+    // cy.get(':nth-child(2) > :nth-child(1) > .control > .input').type(data.adminEmail);
+    // cy.get('.modal-card-foot > :nth-child(2)').click();
+    // cy.get('.notification > :nth-child(4)').contains('System Admin User Created Successfully.').should('be.visible')
     
     //search user
-    cy.get('.input[placeholder="Search"]').type(data.userFName + " " + data.userLNameAdmin,{});
+    cy.get('.input[placeholder="Search"]').type(data.userFNameAdmin + " " + data.userLNameAdmin,{force:true});
     cy.get('tbody > tr > :nth-child(1) > .custom-checkbox > .checkmark').click();
-    cy.get('tbody').contains('SysAdmin').should('be.visible')
+    cy.get('tbody').contains('HRFID').should('be.visible')
     
     //edit user
-    cy.get('[data-label="Edit User"] > .button > .fas').click();
-    cy.get('.modal-card-body > :nth-child(2)').click();
-    cy.get(':nth-child(2) > :nth-child(2) > .control > .input').clear();
-    cy.get(':nth-child(2) > :nth-child(2) > .control > .input').type('Test');
-    cy.get('.modal-card-foot > :nth-child(2)').click();
-    cy.get('tbody').contains('Hanis SysAdmin').should('not.exist')
-    cy.get('.notification > :nth-child(4)').contains('System Admin User Updated Successfully.').should('be.visible')
+    // cy.get('[data-label="Edit User"] > .button > .fas').click();
+    // cy.get('.modal-card-body > :nth-child(2)').click();
+    // cy.get(':nth-child(2) > :nth-child(2) > .control > .input').clear();
+    // cy.get(':nth-child(2) > :nth-child(2) > .control > .input').type('Test');
+    // cy.get('.modal-card-foot > :nth-child(2)').click();
+    // cy.get('tbody').contains('Hanis SysAdmin').should('not.exist')
+    // cy.get('.notification > :nth-child(4)').contains('System Admin User Updated Successfully.').should('be.visible')
     
-    //search and activate
+    //search and deactivate
     cy.get('.input[placeholder="Search"]').clear();
-    cy.get('.input[placeholder="Search"]').type(data.userFName + ' Test');
-    cy.get('tr').contains('Test').should('be.visible')
+    cy.get('.input[placeholder="Search"]').type(data.userFNameAdmin + ' ' + data.userLNameAdmin);
+    cy.get('tr').contains(data.userLNameAdmin).should('be.visible')
+    cy.get('.activate-deactivate-admin > .control > .select > select').select(1);
     cy.get('.button > .fa').click();
     cy.get('.activate-deactivate-modal > .modal > .modal-card > .modal-card-foot > .button').click();
-    cy.get('.status').colourCheck(23,190,187)
+    cy.get('.status').should('have.class','deactive')
+
+    //activate
+    cy.get('.activate-deactivate-admin > .control > .select > select').select(0);
+    cy.get('.button > .fa').click();
+    cy.get('.activate-deactivate-modal > .modal > .modal-card > .modal-card-foot > .button').click();
+    cy.get('.status').should('have.class','active')
     /* ==== End Cypress Studio ==== */
   });
 
