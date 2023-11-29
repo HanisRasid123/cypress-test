@@ -16,9 +16,12 @@ import moment from 'moment/moment';
 
 Cypress.Commands.add('login', (email, password) => { 
   cy.visit(data.host);
+  cy.url().should('include','/landing')
+  cy.get(':nth-child(4) > .control > .input').should('be.visible')
   cy.get(':nth-child(4) > .control > .input').type(email);
   cy.get(':nth-child(5) > .control > .input').type(password);
   cy.get('.create-button').click();
+  cy.wait(1000)
 
   //assertions
   cy.url().should('include', '/system-admin/dashboard')
@@ -27,41 +30,42 @@ Cypress.Commands.add('login', (email, password) => {
 })
 
 Cypress.Commands.add('download',(downloadPath, filePrefix, fileType) => {
-    const now = new Date();
-    var fileTs = 0;
-    var files = [];
-    var filename = "";
-    if (filePrefix.includes("Fractionated_Product_") || filePrefix.includes("Master_File_CODABAR")) {
-      cy.wait(3000)
-      cy.task('readFileMaybe', downloadPath)
-      .then(returnArray =>{
-        files = returnArray.filter((i)=>{
-          return i.includes(filePrefix)
-        })
-
-        if (files.length == 1) {
-          cy.log("1 FILE", files.length)
-          filename = downloadPath + files[0]
-        }
-        else {
-          cy.log("MORE THAN 1 FILE", files.length)
-          filename = downloadPath + files[files.length - 1]
-        }
-
+  var fileTs = 0;
+  var files = [];
+  var filename = "";
+  if (filePrefix.includes("Fractionated_Product_") || filePrefix.includes("Master_File_CODABAR")) {
+    cy.wait(3000)
+    cy.task('readFileMaybe', downloadPath)
+    .then(returnArray =>{
+      files = returnArray.filter((i)=>{
+        return i.includes(filePrefix)
       })
-      .then(()=>{
-        return cy.readFile(filename)
-      })
-    }
-    else if (filePrefix.includes("ARCHIVE_BLOOD_TRANSACTIONS_REPORT")) {
-      return cy.readFile(downloadPath + filePrefix + "All_All_202310_202310" + fileType)
-    }
-    else {
-      fileTs = moment(now).format("DDMMYYYY_HHmm")
-      filename = downloadPath + filePrefix + fileTs + fileType;
+      
+      if (files.length == 1) {
+        cy.log("1 FILE", files.length)
+        filename = downloadPath + files[0]
+      }
+      else {
+        cy.log("MORE THAN 1 FILE", files.length)
+        filename = downloadPath + files[files.length - 1]
+      }
+      
+    })
+    .then(()=>{
       return cy.readFile(filename)
-    }
-  })
+    })
+  }
+  else if (filePrefix.includes("ARCHIVE_BLOOD_TRANSACTIONS_REPORT")) {
+    return cy.readFile(downloadPath + filePrefix + "All_All_202310_202310" + fileType)
+  }
+  else {
+    const now = new Date();
+    fileTs = moment(now).utc().format("DDMMYYYY_HHmm")
+    cy.log(fileTs)
+    filename = downloadPath + filePrefix + fileTs + fileType;
+    return cy.readFile(filename)
+  }
+})
 //
 //
 // -- This is a child command --
