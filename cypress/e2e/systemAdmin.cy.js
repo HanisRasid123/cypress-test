@@ -343,14 +343,14 @@ describe('System Admin', () => {
 
     //add patient
     cy.get(':nth-child(1) > .create-button-margin').click();
-    cy.get('.modal-card-body > :nth-child(1) > :nth-child(1) > :nth-child(1) > .input').type(data.patientfName);
-    cy.get(':nth-child(3) > .input').type(data.patientlName);
+    cy.get('.modal-card-body > :nth-child(1) > :nth-child(1) > :nth-child(1) > .input').type(data.patientfName, {force:true});
+    cy.get(':nth-child(3) > .input').type(data.patientlName, {force:true});
     cy.get(':nth-child(4) > .field > .control > .select > select').select('0');
     cy.get('.modal-card-foot > :nth-child(2)').click();
     cy.get(':nth-child(1) > :nth-child(1) > .field > .control > .select > select').select('91');
-    cy.get(':nth-child(2) > .field > .input').type(data.patientMRN);
+    cy.get(':nth-child(2) > .field > .input').type(data.patientMRN, {force:true});
     cy.get('.modal-card-foot > :nth-child(2)').click();
-    cy.get(':nth-child(6) > .control > .input').type(data.patientfName + " " + data.patientlName);
+    cy.get(':nth-child(6) > .control > .input').type(data.patientfName + " " + data.patientlName, {force:true});
     cy.contains(data.patientfName, {matchCase: false}).should('be.visible')
     cy.contains(data.patientlName, {matchCase: false}).should('be.visible')
     cy.contains(data.patientMRN, {matchCase: false}).should('be.visible')
@@ -714,7 +714,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('alerts', function() {
+  it('alerts', function() {
     /* ==== Generated with Cypress Studio ==== */
     
     //navigate
@@ -725,9 +725,9 @@ describe('System Admin', () => {
     //fractionated product location tracking
     cy.get('.configuration__list > :nth-child(1)').click();
     cy.get(':nth-child(3) > .control > .select > select').select('8');
-    cy.get('#AtLocationQA_Test_Location0 > :nth-child(1) > :nth-child(1) > :nth-child(2)').trigger('click');
+    cy.get('#AtLocationQA_Test_Location1 > :nth-child(1) > :nth-child(1) > :nth-child(2)').trigger('click');
     cy.get('.status').colourCheck(3,156,16)
-    cy.get('#AtLocationQA_Test_Location0 > :nth-child(1) > :nth-child(1) > :nth-child(5)').trigger('click');
+    cy.get('#AtLocationQA_Test_Location1 > :nth-child(1) > :nth-child(1) > :nth-child(5)').trigger('click');
     cy.get('.status').colourCheck(218, 29, 58)
     cy.get('.back > p').click();
     

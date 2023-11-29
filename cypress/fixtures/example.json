@@ -32,7 +32,7 @@
   "fractionatedDataFilePrefix": "Fractionated_Product_Data_",
   "downloadPath": "cypress/downloads/",
   "fpTrackingId": "FPAAAY6633",
-  "locationSetting":"QA_Test_Location",
+  "locationSetting":"HAS Lab 001",
   "clinicalAreaSetting": "Test-CA",
   "slaConfig":{
     "name": "Blood SLA",
