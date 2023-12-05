@@ -216,7 +216,7 @@ describe('System Admin', () => {
 
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('locationGroups', function() {
+  it.only('locationGroups', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate

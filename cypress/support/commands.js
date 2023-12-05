@@ -15,7 +15,7 @@ import moment from 'moment/moment';
 
 
 Cypress.Commands.add('login', (email, password) => { 
-  cy.visit(data.host);
+  cy.visit(process.env.host);
   cy.url().should('include','/landing')
   cy.get(':nth-child(4) > .control > .input').should('be.visible')
   cy.get(':nth-child(4) > .control > .input').type(email);
