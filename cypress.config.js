@@ -1,9 +1,11 @@
 const { defineConfig } = require("cypress");
 const nodemailer = require("nodemailer");
 const { afterRunHook } = require("cypress-mochawesome-reporter/lib");
-const config = require('./run')
 
 module.exports = defineConfig({
+  env: {
+    host: process.env.host
+  },
   reporter: "cypress-mochawesome-reporter",
   reporterOptions: {
     reportDir: "cypress/results",
@@ -22,9 +24,6 @@ module.exports = defineConfig({
         await afterRunHook();
         await sendMail();
       });
-      on("before:browser:launch", (browser, launchOptions)=>{
-        
-      })
     },
     experimentalStudio: true,
   },
@@ -39,15 +38,15 @@ function sendMail() {
       port: 465,
       transportMethod: "SMTP", // default is SMTP. Accepts anything that nodemailer accepts
       auth: {
-        user: config.user,
-        pass: config.pass,
+        user: process.env.user,
+        pass: process.env.pass,
       },
       rateLimit: 1, // do not send more than 1 message in a second
     });
 
     const sendEmailData = {
       from: "automatedTest@controlpoint.healthrfid.com",
-      to: config.to,
+      to: process.env.to,
       subject: "Automated Sanity Report " + new Date().toDateString(),
       text: "This email includes a HTML report of the automated sanity test.",
       attachments: { path: "./cypress/results/index.html" },
