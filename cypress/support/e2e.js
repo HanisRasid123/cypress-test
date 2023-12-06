@@ -18,7 +18,7 @@ import "./commands";
 import "moment";
 import "cypress-mochawesome-reporter/register";
 
-Cypress.on("test:after:run", async (test, runnable) => {
+Cypress.on("test:after:run", (test, runnable) => {
   if (Cypress.config("video")) {
     // assuming the videos are stored in "cypress/videos"
     const videoFile = `../videos/${Cypress.spec.name}.mp4`;

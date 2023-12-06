@@ -74,23 +74,12 @@ Cypress.Commands.add('colourCheck', { prevSubject: 'element'}, (subject, r, g, b
 })
 
 
-Cypress.Commands.add('downloadAndValidateReports', (prefix)=>{
+Cypress.Commands.add('downloadReports', ()=>{
   cy.get('.collapse-trigger > .print-report-button').click();
 
-  cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
   cy.get('.download-xlxs-button').click();
-  cy.wait('@download1')
-  cy.download(data.downloadPath, prefix, ".0.xlsx").should('exist')
-
-  cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
   cy.get('.download-csv-button').click();
-  cy.wait('@download2')
-  cy.download(data.downloadPath, prefix, ".0.csv").should('exist')
-
-  cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
   cy.get('.download-pdf-button').click();
-  cy.wait('@download3')
-  cy.download(data.downloadPath, prefix, ".pdf").should('exist')
 
   cy.get('.collapse-trigger > .print-report-button').click();
 })

@@ -21,11 +21,17 @@ module.exports = defineConfig({
     setupNodeEvents(on, config) {
       require("cypress-mochawesome-reporter/plugin")(on);
       on("after:run", async (results) => {
-        await afterRunHook();
-        await sendMail();
+        if (process.env.to) {
+          await afterRunHook();
+          await sendMail();
+        }
+        else {
+          console.log('Email will not be sent')
+        }
       });
     },
     experimentalStudio: true,
+    video: true
   },
 });
 
