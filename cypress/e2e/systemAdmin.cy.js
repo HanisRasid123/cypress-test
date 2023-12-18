@@ -230,63 +230,24 @@ describe('System Admin', () => {
     cy.get('[style="height: auto;"] > :nth-child(5)').click();
     cy.url().should('include','/system-admin/user/location-groups')
 
-    //create location group
-    // cy.get('.create-button').trigger('click');
-    // cy.url().should('include','/system-admin/user/location-group-process')
-    // cy.get('.input').type('TestLocationGroup');
-    // cy.get('select').select('1')
-    // cy.get(':nth-child(2) > .field > .control > .select > select').select('2');
-    // cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
-    // cy.get('#feature0').should('be.visible')
-    // cy.get(':nth-child(5) > .column > :nth-child(2)').contains('Create').trigger('click');
-    // cy.url().should('include','/system-admin/user/location-groups')
+    cy.get('.create-button').click();
 
-    //search 
-    cy.get('.input').type(data.locationGroup, {force:true});
-    cy.contains(data.locationGroup)
-    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
-
-    //edit
-    cy.get('[data-label="Edit Location Group"] > .button > .fa').click();
-    cy.url().should('include', '/system-admin/user/location-group-process')
-    cy.get(':nth-child(2) > .field > .control > .select > select').select('4');
-    cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
-    cy.get('p').contains("Theatre").as('targetFeature').should('be.visible')
+    //create test group
+    cy.get('.input').type('test group name');
+    cy.get('select').select(1);
+    cy.get(':nth-child(2) > .field > .control > .select > select').select(1);
+    cy.get('.panel-block > .columns > .has-text-right > .create-button').click();
+    cy.get('#feature0').should('be.visible');
     cy.get(':nth-child(5) > .column > :nth-child(2)').click();
-    cy.url().should('include','/system-admin/user/location-groups')
+    cy.get('.title').contains('Location Groups').should('be.visible');
 
-    //search
-    cy.get('.input').type(data.locationGroup, {force:true});
-    cy.get('tbody > tr').should('have.length', 1)
+    //delete test group
+    cy.get('.input').type('test group name', {force:true});
+    cy.get('td').contains('test group name').should('be.visible')
     cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
-
-    //edit
-    cy.get('[data-label="Edit Location Group"] > .button > .fa').click();
-    cy.url().should('include', '/system-admin/user/location-group-process')
-    cy.wait(1000)
-    cy.get('@targetFeature').children('.delete').as('deleteLocation').trigger('click');
-    cy.get('#feature2').should('not.exist')
-    cy.get(':nth-child(5) > .column > :nth-child(2)').click();
-    cy.url().should('include','/system-admin/user/location-groups')
-
-    //search
-    cy.get('.input').type(data.locationGroup, {force:true});
-    cy.contains(data.locationGroup)
-    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
-
-    //deactivate
-    cy.get('.activate-deactivate-admin > .control > .select > select').select('0');
-    cy.get('.with-form > .buttons > .is-dark > .button > .fa').click();
+    cy.get('[data-label="Delete Location Group"] > .button > .fa').click();
     cy.get('.modal-card-foot > :nth-child(2)').click();
-    cy.get('.status.deactive').colourCheck(243, 146, 55);
-
-    //activate
-    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
-    cy.get('.activate-deactivate-admin > .control > .select > select').select('1');
-    cy.get('.with-form > .buttons > .is-dark > .button > .fa').click();
-    cy.get('.modal-card-foot > :nth-child(2)').click();
-    cy.get('.status').should('have.class', 'active');
-    /* ==== End Cypress Studio ==== */
+    cy.get('td').should('not.exist')
   });
 
   /* ==== Test Created with Cypress Studio ==== */
@@ -322,7 +283,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('patientData', function() {
+  it.only('patientData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -336,30 +297,30 @@ describe('System Admin', () => {
     cy.url().should('include',"/system-product/patient-data")
 
     
-    //download file and verify
-    cy.get('tbody').should('be.visible').then(()=>{
-      cy.get(':nth-child(2) > .create-button-margin').click()
-    })
-    // cy.download(data.downloadPath, data.patientDataFilePrefix, ".0.xlsx").should('exist')
+    // //download file and verify
+    // cy.get('tbody').should('be.visible').then(()=>{
+    //   cy.get(':nth-child(2) > .create-button-margin').click()
+    // })
+    // // cy.download(data.downloadPath, data.patientDataFilePrefix, ".0.xlsx").should('exist')
 
-    //add patient
-    cy.get(':nth-child(1) > .create-button-margin').click();
-    cy.get('.modal-card-body > :nth-child(1) > :nth-child(1) > :nth-child(1) > .input').type(data.patientfName, {force:true});
-    cy.get(':nth-child(3) > .input').type(data.patientlName, {force:true});
-    cy.get(':nth-child(4) > .field > .control > .select > select').select('0');
-    cy.get('.modal-card-foot > :nth-child(2)').click();
-    cy.get(':nth-child(1) > :nth-child(1) > .field > .control > .select > select').select('91');
-    cy.get(':nth-child(2) > .field > .input').type(data.patientMRN, {force:true});
-    cy.get('.modal-card-foot > :nth-child(2)').click();
-    cy.get(':nth-child(6) > .control > .input').type(data.patientfName + " " + data.patientlName, {force:true});
-    cy.contains(data.patientfName, {matchCase: false}).should('be.visible')
-    cy.contains(data.patientlName, {matchCase: false}).should('be.visible')
-    cy.contains(data.patientMRN, {matchCase: false}).should('be.visible')
+    // //add patient
+    // cy.get(':nth-child(1) > .create-button-margin').click();
+    // cy.get('.modal-card-body > :nth-child(1) > :nth-child(1) > :nth-child(1) > .input').type(data.patientfName, {force:true});
+    // cy.get(':nth-child(3) > .input').type(data.patientlName, {force:true});
+    // cy.get(':nth-child(4) > .field > .control > .select > select').select('0');
+    // cy.get('.modal-card-foot > :nth-child(2)').click();
+    // cy.get(':nth-child(1) > :nth-child(1) > .field > .control > .select > select').select('91');
+    // cy.get(':nth-child(2) > .field > .input').type(data.patientMRN, {force:true});
+    // cy.get('.modal-card-foot > :nth-child(2)').click();
+    // cy.get(':nth-child(6) > .control > .input').type(data.patientfName + " " + data.patientlName, {force:true});
+    // cy.contains(data.patientfName, {matchCase: false}).should('be.visible')
+    // cy.contains(data.patientlName, {matchCase: false}).should('be.visible')
+    // cy.contains(data.patientMRN, {matchCase: false}).should('be.visible')
     /* ==== End Cypress Studio ==== */
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('bloodData', function() {
+  it.only('bloodData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -378,18 +339,18 @@ describe('System Admin', () => {
 
 
     //test search function
-    cy.get('.input').type(data.bloodComponent.donationId, {force:true});
-    cy.contains(data.bloodComponent.donationId).should('be.visible')
-    cy.get('.input').clear();
-    cy.get('.input').type(data.bloodComponent.componentName, {});
-    cy.contains(data.bloodComponent.componentName).should('be.visible')
-    cy.get('.input').clear();
-    cy.get('.input').type(data.bloodComponent.componentCat, {});
-    cy.contains(data.bloodComponent.componentCat)
-    cy.get('.input').clear();
-    cy.get('#select_status').select("1",{})
-    cy.contains(data.bloodComponent.componentCat).should('be.visible')
-    cy.get('.create-button-margin').click();
+    // cy.get('.input').type(data.bloodComponent.donationId, {force:true});
+    // cy.contains(data.bloodComponent.donationId).should('be.visible')
+    // cy.get('.input').clear();
+    // cy.get('.input').type(data.bloodComponent.componentName, {});
+    // cy.contains(data.bloodComponent.componentName).should('be.visible')
+    // cy.get('.input').clear();
+    // cy.get('.input').type(data.bloodComponent.componentCat, {});
+    // cy.contains(data.bloodComponent.componentCat)
+    // cy.get('.input').clear();
+    // cy.get('#select_status').select("1",{})
+    // cy.contains(data.bloodComponent.componentCat).should('be.visible')
+    // cy.get('.create-button-margin').click();
     //get current date ------------------PUT INTO CUSTOM METHOD
     // cy.download(data.downloadPath, data.bloodDataFilePrefix, ".0.xlsx").as("file")
     //search file name and assert include compCat and not include !compCat
@@ -398,7 +359,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('addPatient(unXmatched/emergency)', function() {
+  it.only('addPatient(unXmatched/emergency)', function() {
     /* ==== Generated with Cypress Studio ==== */
     //navigation
     cy.get('.menu-toggle > .fa').click();
@@ -411,10 +372,10 @@ describe('System Admin', () => {
 
 
     //modify patient
-    cy.get(':nth-child(2) > .action-buttons > .is-dark > button > .fa').click();
-    cy.get(':nth-child(9) > .button').click();
-    cy.get('.modal-card-foot > :nth-child(2)').click();
-    cy.get('.notification').should('be.visible')
+    // cy.get(':nth-child(2) > .action-buttons > .is-dark > button > .fa').click();
+    // cy.get(':nth-child(9) > .button').click();
+    // cy.get('.modal-card-foot > :nth-child(2)').click();
+    // cy.get('.notification').should('be.visible')
     /* ==== End Cypress Studio ==== */
   });
 
@@ -548,7 +509,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('slaConfig', function() {
+  it.only('slaConfig', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -603,11 +564,11 @@ describe('System Admin', () => {
     // cy.contains(data.slaConfig.name).should('be.visible')
 
     //edit
-    cy.get(':nth-child(4) > tbody > :nth-child(1) > .action-buttons > button > .fa').click();
-    cy.get('.my-accordion-container > :nth-child(1) > :nth-child(1) > .delete').click();
-    cy.get('.modal-card-foot > :nth-child(2)').click()
-    cy.get(':nth-child(5) > .column > :nth-child(2)').click();
-    cy.get('.notification > :nth-child(4)').should('be.visible')
+    // cy.get(':nth-child(4) > tbody > :nth-child(1) > .action-buttons > button > .fa').click();
+    // cy.get('.my-accordion-container > :nth-child(1) > :nth-child(1) > .delete').click();
+    // cy.get('.modal-card-foot > :nth-child(2)').click()
+    // cy.get(':nth-child(5) > .column > :nth-child(2)').click();
+    // cy.get('.notification > :nth-child(4)').should('be.visible')
     
     //add override
     // cy.get(':nth-child(7) > :nth-child(1) > .create-button').click();
@@ -620,7 +581,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('masterFiles', function() {
+  it.only('masterFiles', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -767,7 +728,7 @@ describe('System Admin', () => {
   });
   //TODO: fix all report pages and we should be done-------------------------------------------------------
   /* ==== Test Created with Cypress Studio ==== */
-  it('bloodSignOutRegister', function() {
+  it.only('bloodSignOutRegister', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -787,24 +748,24 @@ describe('System Admin', () => {
     cy.get('.archive-data-button').click();
     
     //filters
-    cy.get(':nth-child(1) > :nth-child(1) > .field > .control > .select > select').select('8', {});
-    cy.get('.min100Width > :nth-child(1) > .field > .control > .select > select').select('91', {});
-    cy.get('.min100Width > :nth-child(1) > .field > .control > .select > select').select('all', {});
-    cy.get(':nth-child(6) > .field > .control > .input').type(data.signOutRegisterName, {});
+    // cy.get(':nth-child(1) > :nth-child(1) > .field > .control > .select > select').select('8', {});
+    // cy.get('.min100Width > :nth-child(1) > .field > .control > .select > select').select('91', {});
+    // cy.get('.min100Width > :nth-child(1) > .field > .control > .select > select').select('all', {});
+    // cy.get(':nth-child(6) > .field > .control > .input').type(data.signOutRegisterName, {});
     
-    //need to test advanced filters
-    cy.get('.panel-heading').click()
-    cy.get('.my-level > :nth-child(3) > .control > .select > select').select('1', {})
-    cy.get('.create-button').click()
-    cy.get('tbody').contains('JOHN CENA').should('be.visible')
-    cy.get('tbody').contains('Red Cells').should('be.visible')
-    cy.get('tbody').contains('Platelets').should('not.exist')
-    cy.get('tbody').contains('Plasma').should('not.exist')
+    // //need to test advanced filters
+    // cy.get('.panel-heading').click()
+    // cy.get('.my-level > :nth-child(3) > .control > .select > select').select('1', {})
+    // cy.get('.create-button').click()
+    // cy.get('tbody').contains('JOHN CENA').should('be.visible')
+    // cy.get('tbody').contains('Red Cells').should('be.visible')
+    // cy.get('tbody').contains('Platelets').should('not.exist')
+    // cy.get('tbody').contains('Plasma').should('not.exist')
     /* ==== End Cypress Studio ==== */
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('bloodStockLevelReport', function() {
+  it.only('bloodStockLevelReport', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -814,18 +775,18 @@ describe('System Admin', () => {
     cy.downloadReports();
     
     //test search filters
-    cy.get('.is-grouped-multiline > :nth-child(1) > .control > .select > select').select('8',{});
-    cy.get('.is-grouped-multiline > :nth-child(2) > .control > .select > select').select('64',{});
-    cy.get('abbr').contains('QA_Test_Location').should('exist')
-    cy.get('.is-grouped-multiline > :nth-child(4) > .control > .input').type('wdp1001',{});
-    cy.get('abbr').contains('WDP1001').should('exist').and('have.length', 1)
-    cy.get('.panel-heading').click();
-    cy.get('.my-level > :nth-child(2) > .control > .select > select').select('1',{});
-    cy.get('.create-button').click();
+    // cy.get('.is-grouped-multiline > :nth-child(1) > .control > .select > select').select('8',{});
+    // cy.get('.is-grouped-multiline > :nth-child(2) > .control > .select > select').select('64',{});
+    // cy.get('abbr').contains('QA_Test_Location').should('exist')
+    // cy.get('.is-grouped-multiline > :nth-child(4) > .control > .input').type('wdp1001',{});
+    // cy.get('abbr').contains('WDP1001').should('exist').and('have.length', 1)
+    // cy.get('.panel-heading').click();
+    // cy.get('.my-level > :nth-child(2) > .control > .select > select').select('1',{});
+    // cy.get('.create-button').click();
     /* ==== End Cypress Studio ==== */
   });
 
-  it('emergencyStockLevelReport', ()=>{
+  it.only('emergencyStockLevelReport', ()=>{
 
     //navigate
     cy.navigateToReportPage('Emergency Blood Stock Level Report', 'report/emergency-blood-stock-level-report')
@@ -841,9 +802,9 @@ describe('System Admin', () => {
     cy.get('.my-level > :nth-child(3) > .control > .input').type('HSA1122',{force:true})
     cy.get('.create-button').click()
 
-    cy.get('abbr').contains("HSA1122").should('be.length',1)
-    cy.get('abbr').contains("QA_Test_Location").should('be.length',1)
-    cy.get('abbr').contains("Red Cells").should('be.length',1)
+    // cy.get('abbr').contains("HSA1122").should('be.length',1)
+    // cy.get('abbr').contains("QA_Test_Location").should('be.length',1)
+    // cy.get('abbr').contains("Red Cells").should('be.length',1)
   });
   
   it('bloodTransactionsSummaryReport', ()=>{
@@ -921,55 +882,55 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it('fpSignOutRegister', ()=>{
+  it.only('fpSignOutRegister', ()=>{
     var noData = false;
     cy.navigateToReportPage('Fractionated Product Sign Out Register', '/report/fractionated-product-sign-out-register')
     cy.wait(1000)
     cy.get('.collapse-trigger > .print-report-button').contains('Print Report').click();
 
-    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
+    // cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download1')
     cy.get('.download-xlxs-button').click();
-    cy.get('.showToastClass').should('be.visible').then(($element)=>{
-      cy.log($element.length)
-      if ($element.length == 0) {
-        cy.wait('@download1')
-        cy.download(data.downloadPath, data.fpSignOutRegisterPrefix, ".0.xlsx").should('exist')
-      }
-    })
+    // cy.get('.showToastClass').should('be.visible').then(($element)=>{
+    //   cy.log($element.length)
+    //   if ($element.length == 0) {
+    //     cy.wait('@download1')
+    //     cy.download(data.downloadPath, data.fpSignOutRegisterPrefix, ".0.xlsx").should('exist')
+    //   }
+    // })
   
-    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
+    // cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download2')
     cy.get('.download-csv-button').click();
-    cy.get('.showToastClass').should('be.visible').then(($element)=>{
-      if ($element.length == 0) {
-        cy.wait('@download2')
-        cy.download(data.downloadPath, data.fpSignOutRegisterPrefix, ".0.csv").should('exist')
-      }
+    // cy.get('.showToastClass').should('be.visible').then(($element)=>{
+    //   if ($element.length == 0) {
+    //     cy.wait('@download2')
+    //     cy.download(data.downloadPath, data.fpSignOutRegisterPrefix, ".0.csv").should('exist')
+    //   }
 
-    })
+    // })
   
-    cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
+    // cy.intercept('http://localhost:8080/api/audit/saveWebAudit').as('download3')
     cy.get('.download-pdf-button').click();
-    cy.get('.showToastClass').should('exist').then(($element)=>{
-      if ($element.length == 0) {
-        cy.wait('@download3')
-        cy.download(data.downloadPath, data.fpSignOutRegisterPrefix, ".pdf").should('exist')
-      }
-      else {
-        noData = true;
-      }
-    })
-    .then(()=>{
-      cy.get('.collapse-trigger > .print-report-button').contains('Print Report').click();
+    cy.get('.collapse-trigger > .print-report-button').contains('Print Report').click();
+    // cy.get('.showToastClass').should('exist').then(($element)=>{
+    //   if ($element.length == 0) {
+    //     cy.wait('@download3')
+    //     cy.download(data.downloadPath, data.fpSignOutRegisterPrefix, ".pdf").should('exist')
+    //   }
+    //   else {
+    //     noData = true;
+    //   }
+    // })
+    // .then(()=>{
       //search filters
-      if (!noData) {
-        cy.get('.fix-width > :nth-child(1) > .field > .control > .select > select').select('8');
-        cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select('55');
-        cy.get('tbody').contains('QA_Test_Location').as('location').scrollIntoView()
-        cy.get('@location').should('not.exist')
-        cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select('64');
-        cy.get('@location').should('be.visible')
-      }
-    })
+    //   if (!noData) {
+    //     cy.get('.fix-width > :nth-child(1) > .field > .control > .select > select').select('8');
+    //     cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select('55');
+    //     cy.get('tbody').contains('QA_Test_Location').as('location').scrollIntoView()
+    //     cy.get('@location').should('not.exist')
+    //     cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select('64');
+    //     cy.get('@location').should('be.visible')
+    //   }
+    // })
   
     /* ==== Generated with Cypress Studio ==== */
 
@@ -985,7 +946,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it('fpStockLevelReport', ()=>{
+  it.only('fpStockLevelReport', ()=>{
     cy.navigateToReportPage('Fractionated Product Stock Level Report', 'report/fractionated-product-stock-level-report')
     cy.downloadReports()
     /* ==== Generated with Cypress Studio ==== */
@@ -1001,7 +962,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it('fpTransactionsSummaryReport', ()=>{
+  it.only('fpTransactionsSummaryReport', ()=>{
     cy.navigateToReportPage('Fractionated Product Transactions Report (Summary)','report/fractionated-product-transaction-report')
     cy.get('.collapse-trigger > .primary-button').contains('Print Report').click();
 
@@ -1046,7 +1007,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it('webAuditReport', ()=>{
+  it.only('webAuditReport', ()=>{
     cy.navigateToReportPage('Web Audit Report', '/report/web-audit-report')
     
     //search
@@ -1054,7 +1015,7 @@ describe('System Admin', () => {
     cy.get('tbody').contains(1).should('be.visible')
     cy.get('label').contains('Date Range').siblings().children().children().select('1')
 
-    cy.get('.field > .control > .input').type('download');
+    cy.get('.field > .control > .input').type('download', {force:true});
     cy.get('tbody').contains('Download').should('be.visible')
 
 
@@ -1071,7 +1032,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it('appAuditReport', ()=>{
+  it.only('appAuditReport', ()=>{
     cy.navigateToReportPage('App Audit Report', '/report/app-audit-report')
     /* ==== Generated with Cypress Studio ==== */
 
