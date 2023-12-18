@@ -17,7 +17,6 @@ module.exports = defineConfig({
     overwrite: true,
   },
   e2e: {
-    retries: 1,
     setupNodeEvents(on, config) {
       require("cypress-mochawesome-reporter/plugin")(on);
       on("after:run", async (results) => {
@@ -31,7 +30,8 @@ module.exports = defineConfig({
       });
     },
     experimentalStudio: true,
-    video: true
+    video: true,
+    defaultCommandTimeout: 10000
   },
 });
 
