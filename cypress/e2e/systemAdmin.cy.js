@@ -7,7 +7,7 @@ beforeEach(()=> {
 
 describe('System Admin', () => {
   // /* ==== Test Created with Cypress Studio ==== */
-  it('OrganisationTest', function() {
+  it.only('OrganisationTest', function() {
     /* ==== Generated with Cypress Studio ==== */
     //navigate to organisation
     cy.get('.menu-toggle').click();
@@ -283,7 +283,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('patientData', function() {
+  it('patientData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -320,7 +320,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('bloodData', function() {
+  it('bloodData', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -359,7 +359,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('addPatient(unXmatched/emergency)', function() {
+  it('addPatient(unXmatched/emergency)', function() {
     /* ==== Generated with Cypress Studio ==== */
     //navigation
     cy.get('.menu-toggle > .fa').click();
@@ -509,7 +509,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('slaConfig', function() {
+  it('slaConfig', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -581,7 +581,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('masterFiles', function() {
+  it('masterFiles', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -726,9 +726,9 @@ describe('System Admin', () => {
     cy.get('.back > p').click();
     /* ==== End Cypress Studio ==== */
   });
-  //TODO: fix all report pages and we should be done-------------------------------------------------------
+
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('bloodSignOutRegister', function() {
+  it('bloodSignOutRegister', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -765,7 +765,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('bloodStockLevelReport', function() {
+  it('bloodStockLevelReport', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate
@@ -786,7 +786,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   });
 
-  it.only('emergencyStockLevelReport', ()=>{
+  it('emergencyStockLevelReport', ()=>{
 
     //navigate
     cy.navigateToReportPage('Emergency Blood Stock Level Report', 'report/emergency-blood-stock-level-report')
@@ -882,7 +882,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('fpSignOutRegister', ()=>{
+  it('fpSignOutRegister', ()=>{
     var noData = false;
     cy.navigateToReportPage('Fractionated Product Sign Out Register', '/report/fractionated-product-sign-out-register')
     cy.wait(1000)
@@ -946,7 +946,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('fpStockLevelReport', ()=>{
+  it('fpStockLevelReport', ()=>{
     cy.navigateToReportPage('Fractionated Product Stock Level Report', 'report/fractionated-product-stock-level-report')
     cy.downloadReports()
     /* ==== Generated with Cypress Studio ==== */
@@ -962,7 +962,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('fpTransactionsSummaryReport', ()=>{
+  it('fpTransactionsSummaryReport', ()=>{
     cy.navigateToReportPage('Fractionated Product Transactions Report (Summary)','report/fractionated-product-transaction-report')
     cy.get('.collapse-trigger > .primary-button').contains('Print Report').click();
 
@@ -1007,7 +1007,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('webAuditReport', ()=>{
+  it('webAuditReport', ()=>{
     cy.navigateToReportPage('Web Audit Report', '/report/web-audit-report')
     
     //search
@@ -1032,7 +1032,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('appAuditReport', ()=>{
+  it('appAuditReport', ()=>{
     cy.navigateToReportPage('App Audit Report', '/report/app-audit-report')
     /* ==== Generated with Cypress Studio ==== */
 

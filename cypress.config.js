@@ -19,7 +19,10 @@ module.exports = defineConfig({
   e2e: {
     retries: 1,
     setupNodeEvents(on, config) {
+      //report plugin
       require("cypress-mochawesome-reporter/plugin")(on);
+
+      //executes after all tests have run
       on("after:run", async (results) => {
         if (process.env.to) {
           await afterRunHook();
