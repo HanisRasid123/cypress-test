@@ -814,11 +814,13 @@ describe('System Admin', () => {
 
     //download and validate (selector for Print Report button not the same)
     cy.get('.print-blood-unit-button').click();
-
-    cy.get('.download-xlxs-button').click();
-    cy.get('.download-csv-button').click();
-    cy.get('.download-pdf-button').click();
-
+    cy.wait(1000)
+    cy.get('.download-xlxs-button').click()
+    cy.wait(1000)
+    cy.get('.download-csv-button').click()
+    cy.wait(1000)
+    cy.get('.download-pdf-button').click()
+    cy.wait(1000)
     cy.get('.print-blood-unit-button').click();
 
     //archive
