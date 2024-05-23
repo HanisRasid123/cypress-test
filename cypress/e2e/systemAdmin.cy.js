@@ -7,7 +7,7 @@ beforeEach(()=> {
 
 describe('System Admin', () => {
   // /* ==== Test Created with Cypress Studio ==== */
-  it.only('OrganisationTest', function() {
+  it('OrganisationTest', function() {
     /* ==== Generated with Cypress Studio ==== */
     //navigate to organisation
     cy.get('.menu-toggle').click();
@@ -807,9 +807,9 @@ describe('System Admin', () => {
     // cy.get('abbr').contains("Red Cells").should('be.length',1)
   });
   
-  it('bloodTransactionsSummaryReport', ()=>{
+  it.only('bloodTransactionsSummaryReport', ()=>{
     //navigate
-    cy.navigateToReportPage('Blood Transactions Report (Summary)', 'report/blood-transactions-report')
+    cy.navigateToReportPage('Blood Transactions Report (Summary)', 'report/blood-transactions-report').wait(3000)
 
 
     //download and validate (selector for Print Report button not the same)
@@ -991,8 +991,8 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it('fpStockReconciliationReport', ()=>{
-    cy.navigateToReportPage('Fractionated Product Transactions Report (Stock Reconciliation)','report/fractionated-product-transaction-report-stock-reconciliation')
+  it.only('fpStockReconciliationReport', ()=>{
+    cy.navigateToReportPage('Fractionated Product Transactions Report (Stock Reconciliation)','report/fractionated-product-transaction-report-stock-reconciliation').wait(3000);
     cy.downloadReports()
     /* ==== Generated with Cypress Studio ==== */
 
