@@ -3,4 +3,4 @@ cypress/downloads
 cypress/screenshots
 cypress/videos
 cypress/results
-package-lock.json
+downloads
