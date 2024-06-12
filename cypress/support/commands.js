@@ -16,17 +16,14 @@ import moment from 'moment/moment';
 
 Cypress.Commands.add('login', (email, password) => { 
   cy.visit(Cypress.env('host'));
-  cy.url().should('include','/landing')
-  cy.get(':nth-child(4) > .control > .input').should('be.visible')
-  cy.get(':nth-child(4) > .control > .input').type(email);
-  cy.get(':nth-child(5) > .control > .input').type(password);
-  cy.get('.create-button').click();
+  cy.get("input[type='email']").type(email);
+  cy.get("input[type='password']").type(password);
+  cy.get('.create-button').contains('Confirm').click();
   cy.wait(1000)
 
   //assertions
-  cy.url().should('include', '/system-admin/dashboard')
-  cy.get('#pie-chart').should('be.visible')
-  cy.get('#doughnut-chart').should('be.visible')
+  cy.url().should('include', '/home/dashboard')
+  cy.get('.dashboard').should('be.visible')
 })
 
 Cypress.Commands.add('download',(downloadPath, filePrefix, fileType) => {
