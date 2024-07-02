@@ -120,7 +120,7 @@ describe("General Configuration", ()=>{
 
   })
 
-  it.only("should access user group and test all functions", ()=>{
+  it("should access user group and test all functions", ()=>{
     //access user role permissions
     cy.get("a[class='configuration__list-item']").contains("User Management").click()
     cy.get("a[class='configuration__list-dropdown-item']").contains("User Groups").click()
@@ -163,12 +163,26 @@ describe("General Configuration", ()=>{
     
   })
 
-  it("should upload users from excel file", ()=>{
-    
-  })
+  // it("should upload users from excel file", ()=>{
+  //   //access upload users
+  //   cy.get("a[class='configuration__list-item']").contains("User Management").click()
+  //   cy.get("a[class='configuration__list-dropdown-item']").contains("Upload Users").click()
+  // })
 
-  it("should access dashboard settings and test all functions", ()=>{
+  it.only("should access dashboard settings and test all functions", ()=>{
+    //access dashboard settings
+    cy.get("a[class='configuration__list-item']").contains("Dashboard Settings").click()
+
+    cy.wait(1000)
+
+    //toggle location tracking dashboard
+    cy.get("input[type='checkbox']").click()
+    cy.get("button").contains('Submit').click()
+  
+    cy.wait(1000)
     
+    cy.get("input[type='checkbox']").click()
+    cy.get("button").contains('Submit').click()
   })
   
 })
