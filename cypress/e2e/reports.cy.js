@@ -44,7 +44,7 @@ describe("Reports", () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only("should access E-Tag Journey Log and test all functions", () => {
+  it("should access E-Tag Journey Log and test all functions", () => {
 
     const eTagId = "E28069952000444";
     const fName = "Will";
@@ -86,9 +86,29 @@ describe("Reports", () => {
     cy.verifyDownload('.pdf', {contains:true})
   })
 
-  it("should access E-Tag Exception Report and test all functions", () => {
+  it.only("should access E-Tag Exception Report and test all functions", () => {
     //access report page
     cy.get("a").contains("E-Tag Exception Report").click()
+
+    //set filters
+    cy.get('.columns > :nth-child(1) > .field > .control > .select > select').select('5');
+
+    cy.get("#select_status").select('tag_never_detected');
+
+    //assert data
+    const rows = cy.get("tr")
+    rows.children().children().contains("Assigned E-tag Never Detected")
+    
+    //download files
+    cy.get(".print-report-button").click()
+    cy.get('.download-xlxs-button').click();
+    cy.verifyDownload('.xlsx', {contains: true})
+
+    cy.get('.download-csv-button').click();
+    cy.verifyDownload('.csv', {contains:true})
+
+    cy.get('.download-pdf-button').click();
+    cy.verifyDownload('.pdf', {contains:true})
 
   })
 
