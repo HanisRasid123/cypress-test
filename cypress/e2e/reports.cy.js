@@ -114,7 +114,7 @@ describe("Reports", () => {
 
   })
 
-  it.only("should access Body Journey Log and test all functions", () => {
+  it("should access Body Journey Log and test all functions", () => {
 
     const caseId = "20231225";
     const caseIdYear = "2024";
@@ -166,16 +166,44 @@ describe("Reports", () => {
     cy.verifyDownload('.pdf', {contains:true})
   })
 
-  it("should access Cool Room Occupancy Report and test all functions", () => {
+  it.only("should access Cool Room Occupancy Report and test all functions", () => {
     //access report page
     cy.get("a").contains("Cool Room Occupancy").click()
-    //TODO: what data do i search?
+
+    //select date
+    cy.get('.dropdown-trigger > .control > .input').click();
+    cy.get('.datepicker-body > :nth-child(1) > :nth-child(5) > span').click();
+
+    //download files
+    cy.get(".print-report-button")
+    cy.get('.download-xlxs-button').click();
+    cy.verifyDownload('.xlsx', {contains: true})
+
+    cy.get('.download-csv-button').click();
+    cy.verifyDownload('.csv', {contains:true})
+
+    cy.get('.download-pdf-button').click();
+    cy.verifyDownload('.pdf', {contains:true})
+
   })
 
   it("should access IMCS Error Report and test all functions", () => {
     //access report page
-    cy.get("a").contains("IMCS Error Report").click()
-    //TODO: what do i check on this page?
+    cy.get(':nth-child(4) > .configuration__content-info > .configuration__list > .configuration__list-item').click()
+
+    //set filter
+    cy.get('.columns > :nth-child(1) > .field > .control > .select > select').select("5")
+
+    //download files
+    cy.get(".print-report-button")
+    cy.get('.download-xlxs-button').click();
+    cy.verifyDownload('.xlsx', {contains: true})
+
+    cy.get('.download-csv-button').click();
+    cy.verifyDownload('.csv', {contains:true})
+
+    cy.get('.download-pdf-button').click();
+    cy.verifyDownload('.pdf', {contains:true})
   })
 
 })
