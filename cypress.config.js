@@ -1,6 +1,7 @@
 const { defineConfig } = require("cypress");
 const nodemailer = require("nodemailer");
 const { afterRunHook } = require("cypress-mochawesome-reporter/lib");
+const { verifyDownloadTasks } = require("cy-verify-downloads");
 
 module.exports = defineConfig({
   env: {
@@ -32,6 +33,8 @@ module.exports = defineConfig({
           console.log('Email will not be sent')
         }
       });
+
+      on('task', verifyDownloadTasks);
     },
     experimentalStudio: true,
     video: true,

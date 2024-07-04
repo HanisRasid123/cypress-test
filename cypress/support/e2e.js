@@ -17,6 +17,7 @@
 import "./commands";
 import "moment";
 import "cypress-mochawesome-reporter/register";
+require('cy-verify-downloads').addCustomCommand()
 
 Cypress.on("test:after:run", (test, runnable) => {
   if (Cypress.config("video")) {
