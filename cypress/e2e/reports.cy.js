@@ -68,6 +68,8 @@ describe("Reports", () => {
     cy.get(':nth-child(5) > .field > .multiselect > .multiselect__tags').click()
     cy.get("input[placeholder='Select a Location']").type(eTagLocation + "{enter}")
 
+    cy.get('#select_status').select("Assigned")
+
     //assert row data
     cy.get('tbody > tr > :nth-child(2) > abbr').contains(eTagId)
     cy.get('tbody > tr > :nth-child(4) > abbr').contains(fName)
@@ -118,6 +120,9 @@ describe("Reports", () => {
     const caseIdYear = "2024";
     const fName = "Will";
     const lName = "Jacks";
+    const eTagId = "E28069952000444";
+    const eTagLocation = "HRFID OFFICE";
+    const status = "Assigned";
 
     //access report page
     cy.get("a").contains("Body Journey Log").click()
@@ -136,6 +141,14 @@ describe("Reports", () => {
 
     cy.get(':nth-child(5) > .field > .multiselect > .multiselect__tags').click()
     cy.get("input[placeholder='Select Last Name']").type(lName + '{enter}');
+
+    cy.get(':nth-child(6) > .field > .multiselect > .multiselect__tags').click()
+    cy.get("input[placeholder='Select Last Name']").type(eTagId + '{enter}');
+
+    cy.get(':nth-child(7) > .field > .multiselect > .multiselect__tags').click()
+    cy.get("input[placeholder='Select a Location']").type(eTagLocation + '{enter}');
+
+    cy.get('#select_status').select(status)
 
     //assert data
     const rows = cy.get("tr")
@@ -156,13 +169,13 @@ describe("Reports", () => {
   it("should access Cool Room Occupancy Report and test all functions", () => {
     //access report page
     cy.get("a").contains("Cool Room Occupancy").click()
-
+    //TODO: what data do i search?
   })
 
   it("should access IMCS Error Report and test all functions", () => {
     //access report page
     cy.get("a").contains("IMCS Error Report").click()
-
+    //TODO: what do i check on this page?
   })
 
 })
