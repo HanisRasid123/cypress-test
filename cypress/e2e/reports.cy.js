@@ -86,7 +86,7 @@ describe("Reports", () => {
     cy.verifyDownload('.pdf', {contains:true})
   })
 
-  it.only("should access E-Tag Exception Report and test all functions", () => {
+  it("should access E-Tag Exception Report and test all functions", () => {
     //access report page
     cy.get("a").contains("E-Tag Exception Report").click()
 
@@ -98,7 +98,7 @@ describe("Reports", () => {
     //assert data
     const rows = cy.get("tr")
     rows.children().children().contains("Assigned E-tag Never Detected")
-    
+
     //download files
     cy.get(".print-report-button").click()
     cy.get('.download-xlxs-button').click();
@@ -112,10 +112,45 @@ describe("Reports", () => {
 
   })
 
-  it("should access Body Journey Log and test all functions", () => {
+  it.only("should access Body Journey Log and test all functions", () => {
+
+    const caseId = "20231225";
+    const caseIdYear = "2024";
+    const fName = "Will";
+    const lName = "Jacks";
+
     //access report page
     cy.get("a").contains("Body Journey Log").click()
 
+    //set filters
+    cy.get('.is-multiline > :nth-child(1) > [data-v-1a51d6fd=""] > .columns > :nth-child(1) > .field > .control > .select > select').select('4');
+
+    cy.get(':nth-child(2) > .field > .multiselect > .multiselect__tags').click();
+    cy.get("input[placeholder='Select a Case ID']").type(caseId + '{enter}');
+
+    // cy.get('.div > .field > .multiselect > .multiselect__tags').click()
+    // cy.get("input[placeholder='Select Case ID Year']").type(caseIdYear + '{enter}');
+
+    cy.get(':nth-child(4) > .field > .multiselect > .multiselect__tags').click()
+    cy.get("input[placeholder='Select First Name']").type(fName + '{enter}');
+
+    cy.get(':nth-child(5) > .field > .multiselect > .multiselect__tags').click()
+    cy.get("input[placeholder='Select Last Name']").type(lName + '{enter}');
+
+    //assert data
+    const rows = cy.get("tr")
+    rows.children().children().contains(caseId || fName || lName)
+
+    //download files
+    cy.get(':nth-child(1) > .print-report-button').click()
+    cy.get('.download-xlxs-button').click();
+    cy.verifyDownload('.xlsx', {contains: true})
+
+    cy.get('.download-csv-button').click();
+    cy.verifyDownload('.csv', {contains:true})
+
+    cy.get('.download-pdf-button').click();
+    cy.verifyDownload('.pdf', {contains:true})
   })
 
   it("should access Cool Room Occupancy Report and test all functions", () => {
