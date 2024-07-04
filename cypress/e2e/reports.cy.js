@@ -7,7 +7,7 @@ describe("Reports", () => {
     cy.get("a[data-name='Reports']").click()
   });
 
-  it.only("should access E-Tag Location Report and test all functions", () => {
+  it("should access E-Tag Location Report and test all functions", () => {
     const fName = "FTest-120"
     const lName = "LTest-120"
     const eTagLocation = "TestLocation"
@@ -44,10 +44,46 @@ describe("Reports", () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it("should access E-Tag Journey Log and test all functions", () => {
+  it.only("should access E-Tag Journey Log and test all functions", () => {
+
+    const eTagId = "E28069952000444";
+    const fName = "Will";
+    const lName = "Jacks";
+    const eTagLocation = "HRFID OFFICE";
+
     //access report page
     cy.get("a").contains("E-Tag Journey Log").click()
-  
+
+    //set filters
+    cy.get('.is-multiline > :nth-child(1) > [data-v-1db56686=""] > .columns > :nth-child(1) > .field > .control > .select > select').select('4');
+    cy.get(':nth-child(2) > .field > .multiselect > .multiselect__tags').click()
+    cy.get("input[placeholder='Select an E-Tag ID']").type(eTagId + "{enter}")
+
+    cy.get(':nth-child(3) > .field > .multiselect > .multiselect__tags').click()
+    cy.get("input[placeholder='Select First Name']").type(fName + "{enter}")
+
+    cy.get(':nth-child(4) > .field > .multiselect > .multiselect__tags').click()
+    cy.get("input[placeholder='Select Last Name']").type(lName + "{enter}")
+
+    cy.get(':nth-child(5) > .field > .multiselect > .multiselect__tags').click()
+    cy.get("input[placeholder='Select a Location']").type(eTagLocation + "{enter}")
+
+    //assert row data
+    cy.get('tbody > tr > :nth-child(2) > abbr').contains(eTagId)
+    cy.get('tbody > tr > :nth-child(4) > abbr').contains(fName)
+    cy.get('tbody > tr > :nth-child(5) > abbr').contains(lName)
+    cy.get('tbody > tr > :nth-child(6) > abbr').contains(eTagLocation)
+
+    //download reports
+    cy.get(':nth-child(1) > .print-report-button').click();
+    cy.get('.download-xlxs-button').click();
+    cy.verifyDownload('.xlsx', {contains: true})
+
+    cy.get('.download-csv-button').click();
+    cy.verifyDownload('.csv', {contains:true})
+
+    cy.get('.download-pdf-button').click();
+    cy.verifyDownload('.pdf', {contains:true})
   })
 
   it("should access E-Tag Exception Report and test all functions", () => {
