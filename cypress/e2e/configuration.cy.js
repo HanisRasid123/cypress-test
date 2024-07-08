@@ -54,7 +54,7 @@ describe("Configuration", ()=>{
     cy.get('.action-buttons > button').should("be.visible").click()
     cy.get('.activate-prompt-modal > .modal > .modal-card > .modal-card-foot > .button').click()
   });
-  it.only("should access RFID Bay Configuration and test", ()=>{
+  it("should access RFID Bay Configuration and test", ()=>{
     cy.get('[data-name="RFID Bay Configuration"]').click()
     //create
     cy.get('.create-button').click()
@@ -79,16 +79,54 @@ describe("Configuration", ()=>{
     cy.get('[data-v-26ace4e2=""][data-v-49aa9bd1=""] > .modal > .modal-card > .modal-card-foot > .button').click()
     
   });
-  it("should access BT Gateway Configuration and test", ()=>{
+  it.only("should access BT Gateway Configuration and test", ()=>{
     cy.get('[data-name="BT Gateway Configuration"]').click()
+
+    //create
+    cy.get('.create-button').click()
+    cy.get('.column > .control > .select > #select_locId').select("AD")
+    cy.get(':nth-child(3) > .column > .field > .control > .label > .input').clear()
+    cy.get(':nth-child(3) > .column > .field > .control > .label > .input').type("5")
+    cy.get(':nth-child(4) > .column > .field > .control > .label > .input').type("12345678910987654321")
+    cy.get('form > .modal-card-foot > .button').click()
+
+    //edit
+    cy.wait(1000)
+    cy.get(".input").type("AD-5")
+    cy.wait(1000)
+    cy.get('[title="Activate/Deactivate Gateway"]').click()
+    cy.get('[data-v-e1dcdef2=""][data-v-18581256=""] > .modal > .modal-card > .modal-card-foot > .button').click()
+    cy.wait(1000)
+    cy.get('[title="Activate/Deactivate Gateway"]').click()
+    cy.get('[data-v-e1dcdef2=""][data-v-18581256=""] > .modal > .modal-card > .modal-card-foot > .button').click()
+
+    cy.get('[title="Edit Gateway"]').click()
+    cy.get('.field > .label > .input').clear()
+    cy.get('.field > .label > .input').type("10987654321")
+    cy.get('form > .modal-card-foot > .button').click()
+
+    cy.get('[title="Deallocate HID BluFi"]').click()
+    cy.get('[data-v-2b2a4762=""][data-v-18581256=""] > .modal > .modal-card > .modal-card-foot > .button').click()
+    cy.wait(1000)
+    cy.get('[title="Pinpoint Gateway on the Map"]').click()
+    cy.get('.outfit > img').click('center')
+    cy.get("button").contains("Confirm Location").click()
+
+    //delete
+    cy.get('[title="Remove Gateway"]').click()
+    cy.get('[data-v-466862ea=""][data-v-18581256=""] > .modal > .modal-card > .modal-card-foot > .button').click()
+
   });
   it("should access Alerts Configuration and test", ()=>{
     cy.get('[data-name="Alerts Configuration"]').click()
+    //cant test
   });
   it("should access E-Tag Configuration and test", ()=>{
     cy.get('[data-name="E-Tag Configuration"]').click()
+    //cant upload e-tags because of duplication
   });
   it("should access Allocated E-Tags Configuration and test", ()=>{
     cy.get('[data-name="Allocated E-Tags"]').click()
+    //cant test
   });
 })
