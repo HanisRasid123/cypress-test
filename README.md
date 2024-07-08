@@ -9,4 +9,5 @@
 - Ensure test user group is created
 - Download files are verified by checking file extension
 - Upload users file can't be run multiple times because of unique user restraint
+- Location can't be created as there is no delete option
 
