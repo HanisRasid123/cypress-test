@@ -143,7 +143,7 @@ describe("Reports", () => {
     cy.get("input[placeholder='Select Last Name']").type(lName + '{enter}');
 
     cy.get(':nth-child(6) > .field > .multiselect > .multiselect__tags').click()
-    cy.get("input[placeholder='Select Last Name']").type(eTagId + '{enter}');
+    cy.get("input[placeholder='Select Last Name']").type(eTagId + '{enter}', {force: true});
 
     cy.get(':nth-child(7) > .field > .multiselect > .multiselect__tags').click()
     cy.get("input[placeholder='Select a Location']").type(eTagLocation + '{enter}');
@@ -166,7 +166,7 @@ describe("Reports", () => {
     cy.verifyDownload('.pdf', {contains:true})
   })
 
-  it.only("should access Cool Room Occupancy Report and test all functions", () => {
+  it("should access Cool Room Occupancy Report and test all functions", () => {
     //access report page
     cy.get("a").contains("Cool Room Occupancy").click()
 
