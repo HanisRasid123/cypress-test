@@ -1,15 +1,16 @@
 import data from "../fixtures/example.json";
 
 describe("Configuration", ()=>{
+  const locationName = "TESTLOCATION"
+  const abbr = "TLOC"
+  const readerName = "TESTREADER"
   beforeEach(()=>{
     cy.login(data.sysAdminEmail, data.sysAdminPassword);
 
     cy.get("a[data-name='Configuration']").click()
   });
 
-  it.only("should access Location Configuration and test", ()=>{
-    const name = "TESTLOCATION"
-    const abbr = "TLOC"
+  it("should access Location Configuration and test", ()=>{
 
     cy.get('[data-name="Location Configuration"]').click();
 
@@ -20,7 +21,7 @@ describe("Configuration", ()=>{
     // cy.get('form > .modal-card-foot > .button').click()
 
     //edit location
-    cy.get('.input').type(name)
+    cy.get('.input').type(locationName)
     cy.wait(1000)
     cy.get('.action-buttons > button').click()
     cy.get(':nth-child(2) > .column > .control > .input').clear()
@@ -37,8 +38,20 @@ describe("Configuration", ()=>{
     cy.get('form > .modal-card-foot > .button').click()
 
   });
-  it("should access RFID Reader Configuration and test", ()=>{
+  it.only("should access RFID Reader Configuration and test", ()=>{
     cy.get('[data-name="RFID Reader Configuration"]').click()
+    //create reader
+    cy.get('.create-button').click()
+    cy.get('.column > .control > .select > #select_locId').select(abbr)
+
+    cy.get('.field > :nth-child(1) > .control > .input').type(readerName)
+    cy.get('form > .modal-card-foot > .button').click()
+    //delete reader
+    cy.wait(1000)
+    cy.get(".input").type(readerName)
+    cy.wait(1000)
+    cy.get('.action-buttons > button').should("be.visible").click()
+    cy.get('.activate-prompt-modal > .modal > .modal-card > .modal-card-foot > .button').click()
   });
   it("should access RFID Bay Configuration and test", ()=>{
     cy.get('[data-name="RFID Bay Configuration"]').click()
