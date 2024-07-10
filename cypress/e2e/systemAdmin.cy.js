@@ -509,75 +509,47 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('slaConfig', function() {
+  it.only('slaConfig', function() {
     /* ==== Generated with Cypress Studio ==== */
-
+    const slaConfigOrg = "HRFID Demo Lab"
+    const slaConfig = "RBC SLA"
     //navigate
     cy.get('.menu-toggle > .fa').click();
     cy.get('[data-name="Configuration"]').click();
     cy.get('[data-name="Configuration"] > .custom-dropdown > .custom-dropdown__items').click();
     cy.get('.menu-toggle').trigger('click');
     cy.get('.configuration__list > :nth-child(3)').click();
-    cy.get('select').select(1);
+    cy.get('select').select(slaConfigOrg);
     cy.get('.configuration__list > :nth-child(9)').trigger('click');
-    cy.url().should('include','/system-admin/sla-config/sla-configuration')
-
-    //create sla config
-    // cy.get('.is-desktop > :nth-child(1) > .create-button').click();
-    // cy.get('.panel > :nth-child(2) > .field > .control > .input').type(data.slaConfig.name);
-    // cy.get('#2 ').type(data.slaConfig.time);
-    // cy.get('#3 ').type(data.slaConfig.time);
-    // cy.get('select').select('2');
-    // cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
-    // cy.get('#feature0').click();
-    // cy.get('#33').scrollIntoView().type(data.slaConfig.time);
-    // cy.get('#34').type(data.slaConfig.time);
-    // cy.get('#35').type(data.slaConfig.time);
-    // cy.get('#41').type(data.slaConfig.time);
-    // cy.get('#42').type(data.slaConfig.time);
-    // cy.get('#43').type(data.slaConfig.time);
-    // cy.get(':nth-child(5) > .column > :nth-child(2)').trigger('click');
-    // cy.get('.notification > :nth-child(4)').should('be.visible')
 
     //search
-    // cy.get('.input[placeholder="Search"]').should('be.visible')
-    // cy.get('.input[placeholder="Search"]').type(data.slaConfig.name, {force:true});
-    // cy.contains(data.slaConfig.name).should('be.visible')
+    cy.get('.input').type(slaConfig, {force:true});
+    cy.get(':nth-child(4) > tbody > .has-text-left > .action-buttons > button > .fa').click();
 
-    //edit
-    // cy.get(':nth-child(4) > tbody > .has-text-left > .action-buttons > button > .fa').click();
-    // cy.url().should('include','isEdit=true&uId=3&uName=Blood%20SLA')
-    // cy.get('select').select(4);
-    // cy.get('.panel-block > .columns > .has-text-right > .create-button').trigger('click');
-    // cy.get('#feature2').scrollIntoView().click();
-    // cy.get('#33').type(data.slaConfig.time, {force:true});
-    // cy.get('#34').type(data.slaConfig.time, {force:true});
-    // cy.get('#35').type(data.slaConfig.time, {force:true});
-    // cy.get('#41').type(data.slaConfig.time, {force:true});
-    // cy.get('#42').type(data.slaConfig.time, {force:true});
-    // cy.get('#43').type(data.slaConfig.time, {force:true});
-    // cy.get(':nth-child(5) > .column > :nth-child(2)').click();
-    // cy.get('.notification > :nth-child(4)').should('be.visible')
+    //edit status list
+    cy.get('#feature0').click();
+    cy.get(':nth-child(1) > .panel-block > .my-level > :nth-child(1) > .has-addons > fieldset > .columns > :nth-child(2)').click();
+    cy.get('#\\33 3').clear();
+    cy.get('#\\33 3').type('1');
+    cy.get(':nth-child(1) > .panel-block > .my-level > :nth-child(1) > .has-addons > fieldset > .columns').click();
+    cy.get('#\\33 4').clear();
+    cy.get('#\\33 4').type('2');
+    cy.get(':nth-child(1) > .panel-block > .my-level > :nth-child(2) > .has-addons > fieldset > .columns > :nth-child(4)').click();
+    cy.get('#\\34 3').clear();
+    cy.get('#\\34 3').type('3');
+    cy.get('#feature0').click();
+    cy.get(':nth-child(5) > .column > :nth-child(2)').click();
 
-    //search
-    // cy.get('.input[placeholder="Search"]').type(data.slaConfig.name, {force:true});
-    // cy.contains(data.slaConfig.name).should('be.visible')
+    //create override
+    cy.get(':nth-child(7) > :nth-child(1) > .create-button').click();
+    cy.get(':nth-child(1) > .control > .input').type('TEST1');
+    cy.get('.modal-card-body > :nth-child(2) > .control > .input').type('Test Reason');
+    cy.get('form > .modal-card-foot > .button').contains("Add").click();
 
-    //edit
-    // cy.get(':nth-child(4) > tbody > :nth-child(1) > .action-buttons > button > .fa').click();
-    // cy.get('.my-accordion-container > :nth-child(1) > :nth-child(1) > .delete').click();
-    // cy.get('.modal-card-foot > :nth-child(2)').click()
-    // cy.get(':nth-child(5) > .column > :nth-child(2)').click();
-    // cy.get('.notification > :nth-child(4)').should('be.visible')
-    
-    //add override
-    // cy.get(':nth-child(7) > :nth-child(1) > .create-button').click();
-    // cy.get(':nth-child(1) > .control > .input').type(data.slaConfig.overrideCode);
-    // cy.get('form > .modal-card-body').click();
-    // cy.get('.modal-card-body > :nth-child(2) > .control > .input').type(data.slaConfig.overrideDesc);
-    // cy.get('form > .modal-card-foot > .button').click();
-    // cy.get('.notification.showToastClass').should('be.visible')
-    /* ==== End Cypress Studio ==== */
+    //delete override
+    cy.wait(1000)
+    cy.get(':nth-child(1) > .action-buttons > [title="Delete Override reason"]').click()
+    cy.get('.modal-card-foot > :nth-child(1)').click()
   });
 
   /* ==== Test Created with Cypress Studio ==== */
@@ -807,7 +779,7 @@ describe('System Admin', () => {
     // cy.get('abbr').contains("Red Cells").should('be.length',1)
   });
   
-  it.only('bloodTransactionsSummaryReport', ()=>{
+  it('bloodTransactionsSummaryReport', ()=>{
     //navigate
     cy.navigateToReportPage('Blood Transactions Report (Summary)', 'report/blood-transactions-report').wait(3000)
 
@@ -993,7 +965,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('fpStockReconciliationReport', ()=>{
+  it('fpStockReconciliationReport', ()=>{
     cy.navigateToReportPage('Fractionated Product Transactions Report (Stock Reconciliation)','report/fractionated-product-transaction-report-stock-reconciliation').wait(3000);
     cy.downloadReports()
     /* ==== Generated with Cypress Studio ==== */
