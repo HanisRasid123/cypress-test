@@ -737,7 +737,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('bloodStockLevelReport', function() {
+  it('bloodStockLevelReport', function() {
     /* ==== Generated with Cypress Studio ==== */
     const donationId = "WDP1018"
 
@@ -778,10 +778,17 @@ describe('System Admin', () => {
     // cy.get('abbr').contains("Red Cells").should('be.length',1)
   });
   
-  it('bloodTransactionsSummaryReport', ()=>{
+  it.only('bloodTransactionsSummaryReport', ()=>{
+    const orgName = "HRFID Demo Lab"
+    const locationId = "117"
+    const dateRange = "1 Year"
     //navigate
-    cy.navigateToReportPage('Blood Transactions Report (Summary)', 'report/blood-transactions-report').wait(3000)
+    cy.navigateToReportPage('Blood Transactions Report (Summary)', 'report/blood-transactions-report')
 
+    //test filters
+    cy.get('.fix-width > :nth-child(1) > .field > .control > .select > select').select(orgName)
+    cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select(locationId)
+    cy.get('.fix-width > :nth-child(3) > .field > .control > .select > select').select(dateRange)
 
     //download and validate (selector for Print Report button not the same)
     cy.get('.print-blood-unit-button').click();
@@ -803,17 +810,6 @@ describe('System Admin', () => {
     cy.get('.archive-data-button').click();
     cy.get('.download-archive-data-button').click();
     cy.get('.print-report-button').click();
-
-    //search
-    // cy.get('.fix-width > :nth-child(1) > .field > .control > .select > select').select(8);
-    // cy.get('.panel-heading').click();
-    // cy.get('.my-level > :nth-child(3) > .control > .select > select').select(1);
-    // cy.get('.create-button').click();
-    // cy.get('.fix-width > :nth-child(2) > .field > .control > .select > select').select(8);
-    // cy.get('abbr').contains('Red Cells').scrollIntoView().should('exist')
-    // cy.get('abbr').contains("Test").should('exist')
-  
-    /* ==== End Cypress Studio ==== */
   })
 
   it('bloodTransactionHistoryDetailedReport', ()=>{
