@@ -509,7 +509,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it.only('slaConfig', function() {
+  it('slaConfig', function() {
     /* ==== Generated with Cypress Studio ==== */
     const slaConfigOrg = "HRFID Demo Lab"
     const slaConfig = "RBC SLA"
@@ -737,25 +737,24 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('bloodStockLevelReport', function() {
+  it.only('bloodStockLevelReport', function() {
     /* ==== Generated with Cypress Studio ==== */
+    const donationId = "WDP1018"
 
     //navigate
     cy.navigateToReportPage('Stock Level Report', '/report/stock-level-report')
     
+    //test filters
+    cy.get('.is-grouped-multiline > :nth-child(1) > .control > .select > select').select("HRFID Demo Lab")
+    cy.get('.is-grouped-multiline > :nth-child(2) > .control > .select > select').select("Sydney Main Lab")
+    cy.get('.is-grouped-multiline > :nth-child(4) > .control > .input').type(donationId, {force:true})
+
     //download
-    cy.downloadReports();
-    
-    //test search filters
-    // cy.get('.is-grouped-multiline > :nth-child(1) > .control > .select > select').select('8',{});
-    // cy.get('.is-grouped-multiline > :nth-child(2) > .control > .select > select').select('64',{});
-    // cy.get('abbr').contains('QA_Test_Location').should('exist')
-    // cy.get('.is-grouped-multiline > :nth-child(4) > .control > .input').type('wdp1001',{});
-    // cy.get('abbr').contains('WDP1001').should('exist').and('have.length', 1)
-    // cy.get('.panel-heading').click();
-    // cy.get('.my-level > :nth-child(2) > .control > .select > select').select('1',{});
-    // cy.get('.create-button').click();
-    /* ==== End Cypress Studio ==== */
+    cy.get('.collapse-trigger > .print-report-button').click();
+
+    cy.get('.download-xlxs-button').click();
+    cy.get('.download-csv-button').click();
+    cy.get('.download-pdf-button').click();
   });
 
   it('emergencyStockLevelReport', ()=>{
