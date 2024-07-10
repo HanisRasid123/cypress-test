@@ -778,7 +778,7 @@ describe('System Admin', () => {
     // cy.get('abbr').contains("Red Cells").should('be.length',1)
   });
   
-  it.only('bloodTransactionsSummaryReport', ()=>{
+  it('bloodTransactionsSummaryReport', ()=>{
     const orgName = "HRFID Demo Lab"
     const locationId = "117"
     const dateRange = "1 Year"
@@ -952,9 +952,18 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it('fpTransactionHistoryDetailedReport', ()=>{
-    var noData = false
+  it.only('fpTransactionHistoryDetailedReport', ()=>{
+    const orgName = "HRFID Demo Lab"
+    const locationId = "117"
+    const trackingId = "FPAAAA0000"
     cy.navigateToReportPage('Fractionated Product Transactions History Report (Detailed)', 'report/fractionated-product-transaction-history-report')
+
+    //test filters
+    cy.get('.is-grouped-multiline > .field > .control > .select > select').select(orgName);
+    cy.get(':nth-child(4) > :nth-child(2) > .field > .control > .select > select').select(locationId);
+    cy.get(':nth-child(4) > :nth-child(3) > .field > .control > .select > select').select("5");
+    cy.get(':nth-child(5) > :nth-child(1) > .field > .control > .input').type(trackingId, {force:true});
+
     cy.downloadReports();
     /* ==== Generated with Cypress Studio ==== */
     /* ==== End Cypress Studio ==== */
