@@ -99,7 +99,7 @@ describe('System Admin', () => {
   });
 
   /* ==== Test Created with Cypress Studio ==== */
-  it('userRolePermissions', function() {
+  it.only('userRolePermissions', function() {
     /* ==== Generated with Cypress Studio ==== */
 
     //navigate to userRolePermissions
@@ -136,9 +136,21 @@ describe('System Admin', () => {
     //edit user role
     cy.get('[data-label="Edit User Role"] > .button > .fa').click();
     cy.url().should('include', '/system-admin/user/user-role-process')
-    cy.get(':nth-child(1) > .field > .control > .select > select').select('12');
+    cy.get(':nth-child(1) > .field > .control > .select > select').select('25'); //password token management
     cy.get('.is-1 > .create-button').trigger('click')
-    cy.get('#feature0').should('be.visible')
+    cy.get('#feature3').should('be.visible')
+    cy.get(':nth-child(6) > .column > :nth-child(2)').click();
+
+    //search user role and select
+    cy.get('.input').type(data.userRole);
+    cy.contains(data.userRole).should('be.visible');
+    cy.get('.checkbox-td > .custom-checkbox > .checkmark').should('have.length',1)
+    cy.get('.checkbox-td > .custom-checkbox > .checkmark').click();
+
+    //undo edit 
+    cy.get('[data-label="Edit User Role"] > .button > .fa').click();
+    cy.url().should('include', '/system-admin/user/user-role-process')
+    cy.get('#feature3 > .delete').click()
     cy.get('.create-button').contains('Update').click();
 
     //search user role and select
@@ -952,7 +964,7 @@ describe('System Admin', () => {
     /* ==== End Cypress Studio ==== */
   })
 
-  it.only('fpTransactionHistoryDetailedReport', ()=>{
+  it('fpTransactionHistoryDetailedReport', ()=>{
     const orgName = "HRFID Demo Lab"
     const locationId = "117"
     const trackingId = "FPAAAA0000"
