@@ -4,7 +4,7 @@
 3. Run '.\run.ps1' to execute script for automation testing
 
 ## VIFM
-- Ensure that an alert is available to be tested on (dashboard)
+- Ensure that an alert is available to be tested on (dashboard) alert used: E28069952000444
 - Ensure test user is created (should have been assigned to a user group)
 - Ensure test user group is created
 - Download files are verified by checking file extension
