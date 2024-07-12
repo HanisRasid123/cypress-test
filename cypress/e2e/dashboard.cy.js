@@ -112,7 +112,7 @@ describe("Dashboard", () => {
 
   it.only("should display alerts", () => {
     //make api call to generate alert...
-
+    cy.generateAlert({eTag_ID: "E28069952000444"})
     //use etag filter to filter for specific alert
     cy.get("@eTagID").click()
     cy.get(".multiselect__content-wrapper")

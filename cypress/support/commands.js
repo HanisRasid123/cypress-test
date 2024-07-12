@@ -24,8 +24,35 @@ Cypress.Commands.add('login', (email, password) => {
   //assertions
   cy.url().should('include', '/home/dashboard')
   cy.get('.dashboard').should('be.visible')
-})
 
+})
+Cypress.Commands.add('generateAlert', (alertData) => {
+  //capture token
+  cy.getAllLocalStorage().then((res)=>{
+    const hrfid = JSON.parse(res[Cypress.env('host')].hrfid)
+    const token = hrfid.userAuth.token
+    cy.wrap(token).as('token')
+  })
+
+  cy.get('@token').then(token => {
+    let webURL = Cypress.env('host')
+    let index = webURL.indexOf('vifm')
+    let apiURL = webURL.substring(0, index + 4) + "-api" + webURL.substring(index + 4) + "/api/alerts/generateAlert"
+    cy.request({
+      method: 'POST',
+      url: apiURL,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      body: alertData
+    })
+    .then((res)=>{
+      cy.get('.clear-search-buttons > .button').click()
+    })
+  })
+
+
+})
 Cypress.Commands.add('download',(downloadPath, filePrefix, fileType) => {
   var fileTs = 0;
   var files = [];
