@@ -12,4 +12,4 @@
 - Location can't be created as there is no delete option
 - There's no way the alerts configurations can be tested
 - Can't test E-Tag configuration
-
+- Configuration module needs all tests to be run together (they require each other's data)

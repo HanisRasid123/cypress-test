@@ -2,9 +2,9 @@ import data from "../fixtures/example.json";
 
 describe("Configuration", ()=>{
   const locationName = "TESTLOCATION"
-  const abbr = "TLOC"
+  const abbr = "TLOC" + Math.floor(Math.random()*100)
   const readerName = "TESTREADER"
-  const bayName = "TLOC99A"
+  const bayName = abbr + "99A"
   beforeEach(()=>{
     cy.login(data.sysAdminEmail, data.sysAdminPassword);
 
@@ -15,12 +15,6 @@ describe("Configuration", ()=>{
 
     cy.get('[data-name="Location Configuration"]').click();
 
-    // //create location
-    // cy.get('.create-button').click()
-    // cy.get(':nth-child(1) > .column > .control > .input').type(name)
-    // cy.get(':nth-child(2) > .column > .control > .input').type(abbr)
-    // cy.get('form > .modal-card-foot > .button').click()
-
     //edit location
     cy.get('.input').type(locationName)
     cy.wait(1000)
@@ -29,11 +23,20 @@ describe("Configuration", ()=>{
     cy.get(':nth-child(2) > .column > .control > .input').type(abbr)
     cy.get('form > .modal-card-foot > .button').click()
 
-    //enable rfid and bt tracking and set alerts
+    //enable rfid and bt tracking and set alerts (ensure toggles are ON)
+
+    //toggle off
     cy.get(':nth-child(4) > .has-toggle').click()
     cy.get('[data-v-b298ad70=""][data-v-b10c5cb8=""] > .modal > .modal-card > .modal-card-foot > .button').click()
     cy.get(':nth-child(5) > .has-toggle').click()
     cy.get('[data-v-16f6d03b=""][data-v-b10c5cb8=""] > .modal > .modal-card > .modal-card-foot > .button').click()
+
+    //toggle on
+    cy.get(':nth-child(4) > .has-toggle').click()
+    cy.get('[data-v-b298ad70=""][data-v-b10c5cb8=""] > .modal > .modal-card > .modal-card-foot > .button').click()
+    cy.get(':nth-child(5) > .has-toggle').click()
+    cy.get('[data-v-16f6d03b=""][data-v-b10c5cb8=""] > .modal > .modal-card > .modal-card-foot > .button').click()
+
     cy.get('.notification-button > .notification').click()
     cy.get('.field > .switch > .check') .click()
     cy.get('form > .modal-card-foot > .button').click()
@@ -79,7 +82,7 @@ describe("Configuration", ()=>{
     cy.get('[data-v-26ace4e2=""][data-v-49aa9bd1=""] > .modal > .modal-card > .modal-card-foot > .button').click()
     
   });
-  it.only("should access BT Gateway Configuration and test", ()=>{
+  it("should access BT Gateway Configuration and test", ()=>{
     cy.get('[data-name="BT Gateway Configuration"]').click()
 
     //create
