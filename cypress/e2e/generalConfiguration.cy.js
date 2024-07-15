@@ -86,10 +86,12 @@ describe("General Configuration", ()=>{
     cy.get('.column > :nth-child(2)').click()
 
     //edit user role permission
-    cy.get(".input").clear()
-    cy.get(".input").type(newUserRole.name1)
+    cy.get("input[placeholder='Search']").clear()
+    cy.get("input[placeholder='Search']").type(newUserRole.name1)
     cy.get('.checkbox-td > .custom-checkbox > .checkmark').click()
     cy.get(':nth-child(1) > .tooltip-trigger > .button').click()
+    cy.wait(1000)
+    cy.get("input[placeholder='e.g. UserRole1']").clear()
     cy.get("input[placeholder='e.g. UserRole1']").type(newUserRole.name2)
     cy.get('.column > :nth-child(2)').click()
 
@@ -169,7 +171,7 @@ describe("General Configuration", ()=>{
   //   cy.get("a[class='configuration__list-dropdown-item']").contains("Upload Users").click()
   // })
 
-  it.only("should access dashboard settings and test all functions", ()=>{
+  it("should access dashboard settings and test all functions", ()=>{
     //access dashboard settings
     cy.get("a[class='configuration__list-item']").contains("Dashboard Settings").click()
 
