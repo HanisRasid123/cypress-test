@@ -124,9 +124,12 @@ describe("Dashboard", () => {
     .click();
 
     //update note
-    cy.get('.card-header-title-normal').click().wait(1000);
-    cy.get("textarea[placeholder='Enter your note here']").type("Test note")
-    cy.get(".saveAlertNoteButton").click().wait(1000);
+    cy.get(".card-header-title-normal").should("be.visible")
+    cy.get('.card-header-title-normal').trigger('click');
+    cy.get("textarea[placeholder='Enter your note here']").as('note');
+    cy.get("@note").click();
+    cy.get("@note").type("Test note")
+    cy.get(".saveAlertNoteButton").click();
     cy.get("p").contains("Test note");
 
     //acknowledge note
