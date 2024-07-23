@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "cypress:run": "cypress run --browser chrome",
-    "cypress:open": "cypress open --env host=https://sit-vifm.controlpoint.healthrfid.com"
+    "cypress:openSIT": "cypress open --env host=https://sit-vifm.controlpoint.healthrfid.com",
+    "cypress:openUAT": "cypress open --env host=https://uat-vifm.controlpoint.healthrfid.com"
   },
   "author": "Hanis Rasid",
   "license": "ISC",
