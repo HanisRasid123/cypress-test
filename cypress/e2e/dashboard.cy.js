@@ -85,7 +85,7 @@ describe("Dashboard", () => {
       .find("ul > li > span > span")
       .contains("2024 Case-Test120")
       .click();
-    cy.get(".red-dot").should("be.visible");
+    cy.get(".dot").should("be.visible");
 
     //red dot comes up when searching for first name
     cy.get("@firstName").click();
@@ -96,7 +96,7 @@ describe("Dashboard", () => {
       .find("ul > li > span > span")
       .contains("FTest-120")
       .click();
-    cy.get(".red-dot").should("be.visible");
+    cy.get(".dot").should("be.visible");
 
     //red dot comes up when searching for last name
     cy.get("@lastName").click();
@@ -107,10 +107,10 @@ describe("Dashboard", () => {
       .find("ul > li > span > span")
       .contains("LTest-120")
       .click();
-    cy.get(".red-dot").should("be.visible");
+    cy.get(".dot").should("be.visible");
   });
 
-  it.only("should display alerts", () => {
+  it("should display alerts", () => {
     //make api call to generate alert...
     cy.generateAlert({eTag_ID: "E28069952000444"})
     //use etag filter to filter for specific alert
