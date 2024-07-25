@@ -33,13 +33,17 @@ describe("Reports", () => {
 
     //download reports
     cy.get('.collapse-trigger > .print-report-button').click();
+
     cy.get('.download-xlxs-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.xlsx', {contains: true})
 
     cy.get('.download-csv-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.csv', {contains:true})
 
     cy.get('.download-pdf-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.pdf', {contains:true})
     /* ==== End Cypress Studio ==== */
   })
@@ -78,13 +82,17 @@ describe("Reports", () => {
 
     //download reports
     cy.get(':nth-child(1) > .print-report-button').click();
+
     cy.get('.download-xlxs-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.xlsx', {contains: true})
 
     cy.get('.download-csv-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.csv', {contains:true})
 
     cy.get('.download-pdf-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.pdf', {contains:true})
   })
 
@@ -103,13 +111,17 @@ describe("Reports", () => {
 
     //download files
     cy.get(".print-report-button").click()
+    
     cy.get('.download-xlxs-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.xlsx', {contains: true})
 
     cy.get('.download-csv-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.csv', {contains:true})
 
     cy.get('.download-pdf-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.pdf', {contains:true})
 
   })
@@ -156,13 +168,17 @@ describe("Reports", () => {
 
     //download files
     cy.get(':nth-child(1) > .print-report-button').click()
+
     cy.get('.download-xlxs-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.xlsx', {contains: true})
 
     cy.get('.download-csv-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.csv', {contains:true})
 
     cy.get('.download-pdf-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.pdf', {contains:true})
   })
 
@@ -175,14 +191,18 @@ describe("Reports", () => {
     cy.get('.datepicker-body > :nth-child(1) > :nth-child(5) > span').click();
 
     //download files
-    cy.get(".print-report-button")
+    cy.get(".print-report-button").click()
+
     cy.get('.download-xlxs-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.xlsx', {contains: true})
 
     cy.get('.download-csv-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.csv', {contains:true})
 
     cy.get('.download-pdf-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.pdf', {contains:true})
 
   })
@@ -195,14 +215,18 @@ describe("Reports", () => {
     cy.get('.columns > :nth-child(1) > .field > .control > .select > select').select("5")
 
     //download files
-    cy.get(".print-report-button")
+    cy.get(".print-report-button").click();
+
     cy.get('.download-xlxs-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.xlsx', {contains: true})
 
     cy.get('.download-csv-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.csv', {contains:true})
 
     cy.get('.download-pdf-button').click();
+    cy.wait(1000)
     cy.verifyDownload('.pdf', {contains:true})
   })
 
