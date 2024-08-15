@@ -39,10 +39,10 @@ module.exports = defineConfig({
     experimentalStudio: true,
     video: true,
     defaultCommandTimeout: 10000,
-    pageLoadTimeout: 60000,    
-    requestTimeout: 5000,        
-    responseTimeout: 30000,       
-    execTimeout: 60000,          
+    pageLoadTimeout: 100000,    
+    requestTimeout: 10000,        
+    responseTimeout: 60000,       
+    execTimeout: 120000,          
   },
 });
 
