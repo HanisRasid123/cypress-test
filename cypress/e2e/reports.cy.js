@@ -7,6 +7,30 @@ describe("Reports", () => {
     cy.get("a[data-name='Reports']").click()
   });
 
+  it('should access Web Audit Report and test all functions', function() {
+    cy.get("a").contains("Web Audit Report").click();
+
+    //set filters
+    cy.get('.columns > :nth-child(1) > .field > .control > .select > select').select('6');
+    cy.get('.fix-width').click();
+    cy.get('.field > .control > .input').type('navigation');
+
+    //download reports
+    cy.get('.collapse-trigger > .print-report-button').click();
+
+    cy.get('.download-xlxs-button').click();
+    cy.wait(1000)
+    cy.verifyDownload('.xlsx', {contains: true})
+
+    cy.get('.download-csv-button').click();
+    cy.wait(1000)
+    cy.verifyDownload('.csv', {contains:true})
+
+    cy.get('.download-pdf-button').click();
+    cy.wait(1000)
+    cy.verifyDownload('.pdf', {contains:true})
+  });
+
   it("should access E-Tag Location Report and test all functions", () => {
     const fName = "FTest-120"
     const lName = "LTest-120"
